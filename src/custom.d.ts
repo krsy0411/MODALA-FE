@@ -1,11 +1,11 @@
 export {};
 
-declare module '*.svg' {
-  const content: any;
+declare module "*.svg" {
+	const content: any;
 }
 
 declare global {
-  interface Window {
-    kakao: any;
-  }
+	interface Window {
+		kakao: any;
+	}
 }
