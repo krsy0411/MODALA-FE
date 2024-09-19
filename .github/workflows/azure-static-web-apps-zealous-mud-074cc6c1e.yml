@@ -19,6 +19,11 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: 환경변수 생성
+        run: |
+          touch .env
+          echo "VITE_BE_URL=${{ secrets.VITE_BE_URL }}" >> .env
+          echo "VITE_KAKAO_MAP_APP_KEY=${{ secrets.VITE_KAKAO_MAP_APP_KEY }}" >> .env
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

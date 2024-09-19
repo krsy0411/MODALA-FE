@@ -10,7 +10,7 @@ export default function SocialLoginButton({
 	backgroundColor,
 	message,
 }: ButtonProps) {
-	const link = `${import.meta.env.PROD.VITE_BE_URL}/auth/kakao/login`;
+	const link = `${import.meta.env.VITE_BE_URL}/auth/kakao/login`;
 
 	async function goRedirection() {
 		if (socialName === "kakao") {
