@@ -1,0 +1,60 @@
+:root {
+  --Gmarket-Sans-Bold: 'GmarketSansBold';
+  --Gmarket-Sans-Light: 'GmarketSansLight';
+  --Gmarket-Sans-Medium: 'GmarketSansMedium';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100lvw;
+  height: 100lvh;
+}
+
+body {
+  /* 초기화 : 스타일 리셋 부분 */
+  font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', helvetica, arial,
+    'Apple SD Gothic Neo', sans-serif;
+  font-weight: 300; /* 글자 두께 */
+  font-size: 1em;
+  line-height: 1.25; /* 줄 간격 */
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased; /* 글자 부드럽게 */
+  background-color: white;
+  background-size: cover; /* 배경 이미지 기본 크기 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 */
+  background-position: center; /* 배경 이미지 정렬 위치 */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-attachment: fixed;
+
+  /* padding, margin을 0으로 설정 */
+  padding: 0;
+  margin: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+body #root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+@font-face {
+  font-family: 'GmarketSansBold';
+  src: url('/fonts/GmarketSansBold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'GmarketSansLight';
+  src: url('/fonts/GmarketSansLight.otf') format('truetype');
+}
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('/fonts/GmarketSansMedium.otf') format('truetype');
+}
