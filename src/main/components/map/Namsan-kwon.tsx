@@ -1,4 +1,4 @@
-import * as Styled from "../../css/downtown.styled";
+import * as Styled from "../../css/region.map.styled";
 import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
@@ -18,14 +18,15 @@ export default function NamsanKwon() {
             }}
             >
                 <DateandAreaInfo region="남산권" />
-                <Styled.DowntownSVG
+                <Styled.RegionSVG
                     id="남산권"
                     data-name="남산권"
                     width={390}
-                    height={844}
-                    viewBox="0 400 390 444"
+                    height={544}
+                    viewBox="0 0 390 544"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    style={{ transform: 'translate(0px, -150px)' }}
                 >
                     <g clipPath="url(#clip0_2071_308)">
                     <path
@@ -87,9 +88,9 @@ export default function NamsanKwon() {
                         />
                     </clipPath>
                     </defs>
-                </Styled.DowntownSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>      
     );    
 }

@@ -1,4 +1,4 @@
-import * as Styled from "../../css/downtown.styled";
+import * as Styled from "../../css/region.map.styled";
 import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
@@ -18,7 +18,7 @@ export default function Downtown() {
             }}
             >
                 <DateandAreaInfo region="경주시내권" />
-                <Styled.DowntownSVG
+                <Styled.RegionSVG
                 id="경주시내권"
                 data-name="경주시내권"
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,9 +108,9 @@ export default function Downtown() {
                     className="cls-3"
                     points="665.76 705.16 582.79 638.24 575.71 720.87 605.42 726.2 665.76 705.16"
                     />
-                </Styled.DowntownSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>      
     );    
 }

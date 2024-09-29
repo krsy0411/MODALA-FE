@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import * as Styled from "../../css/bulguksa.styled";
+import * as Styled from "../../css/region.map.styled";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
@@ -18,7 +18,7 @@ export default function Bulguksa() {
             }}
             >
                 <DateandAreaInfo region="불국사권" />
-                <Styled.BulguksaSVG
+                <Styled.RegionSVG
                     id="불국사권"
                     data-name="불국사권"
                     xmlns="http://www.w3.org/2000/svg"
@@ -76,9 +76,9 @@ export default function Bulguksa() {
                     className="cls-4"
                     d="M762.49,361.74l-186.3,34.11-224.15,236.1-67.93,170.85v184.28c0,8.13,4.7,15.53,12.06,18.98l174.46,81.78c7.01,3.29,15.13,3.25,22.11-.11l310.08-149.08,18.53-323.17-41.17-60.15-17.7-193.59Z"
                     />
-                </Styled.BulguksaSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>
         
     );

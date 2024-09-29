@@ -1,4 +1,4 @@
-import * as Styled from "../../css/bukbu-kwon.styled";
+import * as Styled from "../../css/region.map.styled";
 import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
@@ -18,14 +18,15 @@ export default function BukbuKwon() {
             }}
             >
                 <DateandAreaInfo region="북부권" />
-                <Styled.BukbuKwonSVG
+                <Styled.RegionSVG
                     id="북부권"
                     data-name="북부권"
                     width={390}
-                    height={844}
-                    viewBox="0 300 390 544"
+                    height={644}
+                    viewBox="0 0 390 644"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    style={{ transform: 'translate(0px, -150px)' }}
                 >
                     <g clipPath="url(#clip0_2071_173)">
                     <path
@@ -111,9 +112,9 @@ export default function BukbuKwon() {
                         />
                     </clipPath>
                     </defs>
-                </Styled.BukbuKwonSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>      
     );    
 }

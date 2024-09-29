@@ -1,4 +1,4 @@
-import * as Styled from "../../css/downtown.styled";
+import * as Styled from "../../css/region.map.styled";
 import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
@@ -18,7 +18,7 @@ export default function BomunKwon() {
             }}
             >
                 <DateandAreaInfo region="보문권" />
-                <Styled.DowntownSVG
+                <Styled.RegionSVG
                     id="보문권"
                     data-name="보문권"
                     width={390}
@@ -104,9 +104,9 @@ export default function BomunKwon() {
                         />
                     </clipPath>
                     </defs>
-                </Styled.DowntownSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>      
     );    
 }

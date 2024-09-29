@@ -1,4 +1,4 @@
-import * as Styled from "../../css/downtown.styled";
+import * as Styled from "../../css/region.map.styled";
 import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
@@ -18,14 +18,15 @@ export default function SeobuKwon() {
             }}
             >
                 <DateandAreaInfo region="서부권" />
-                <Styled.DowntownSVG
+                <Styled.RegionSVG
                     id="서부권"
                     data-name="서부권"
                     width={554.502}
-                    height={1199.999}
-                    viewBox="0 300 554.502 899.999"
+                    height={899.999}
+                    viewBox="0 0 554.502 899.999"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    style={{ transform: 'translate(0px, -130px)' }}
 
                 >
                 <g clipPath="url(#a)">
@@ -72,9 +73,9 @@ export default function SeobuKwon() {
                         <path fill="#fff" d="M137.915 334.123h278.673v557.346H137.915z" />
                     </clipPath>
                     </defs>
-                </Styled.DowntownSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer style={{ bottom:'10vh' }}>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>      
     );    
 }
