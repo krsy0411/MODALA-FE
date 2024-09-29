@@ -21,7 +21,7 @@ export default function Icons() {
       >
         <object
           type="image/svg+xml"
-          data="/src/MyPage/svg/coupon.svg"
+          data="/src/my-page/svg/coupon.svg"
           style={{
             width: '20px',
             height: '16px',
@@ -40,7 +40,7 @@ export default function Icons() {
       >
         <object
           type="image/svg+xml"
-          data="/src/MyPage/svg/heart.svg"
+          data="/src/my-page/svg/heart.svg"
           style={{
             width: '20px',
             height: '16px',
@@ -59,7 +59,7 @@ export default function Icons() {
       >
         <object
           type="image/svg+xml"
-          data="/src/MyPage/svg/review-pen.svg"
+          data="/src/my-page/svg/review-pen.svg"
           style={{
             width: '20px',
             height: '16px',
@@ -78,7 +78,7 @@ export default function Icons() {
       >
         <object
           type="image/svg+xml"
-          data="/src/MyPage/svg/save.svg"
+          data="/src/my-page/svg/save.svg"
           style={{
             width: '20px',
             height: '16px',

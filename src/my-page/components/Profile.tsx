@@ -12,7 +12,7 @@ export default function Profile() {
     >
       <object
         type="image/svg+xml"
-        data="/src/MyPage/svg/profile.default.svg"
+        data="/src/my-page/svg/profile.default.svg"
         style={{
           width: '70px',
           paddingRight: '18px',
