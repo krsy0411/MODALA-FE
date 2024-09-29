@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 import ImgFile from '/svg/Shopping/Img1.svg';
 import ImgFile2 from '/svg/Shopping/Content1.svg';
+import ImgFile3 from '/svg/Shopping/Img2.svg';
 import Top1 from '/svg/Shopping/Top101.svg';
 import Top2 from '/svg/Shopping/Top102.svg';
+import Japan from '/png/japan.png';
+import Mazatlan from '/png/mazatlan.png';
+import Waterfall from '/png/waterfall.png';
+import Rock from '/png/rocks.png';
+import Sea from '/png/sea.png';
+import Italy from '/png/italy.png';
+import Brooklyn from '/png/brooklyn.png';
 
 const navItems = {
   category: ['Top 10', '내 주변', '숙소', '교통', '기념품'],
@@ -28,7 +36,7 @@ const navItems = {
       sales: '20%',
       price: '79,900',
       id: 3,
-      img: 'url',
+      img: ImgFile3,
       distance: '1',
     },
     {
@@ -36,7 +44,7 @@ const navItems = {
       sales: '10%',
       price: '60,900',
       id: 4,
-      img: 'url',
+      img: Japan,
       distance: '3',
     },
     {
@@ -44,7 +52,7 @@ const navItems = {
       sales: '20%',
       price: '79,900',
       id: 5,
-      img: 'url',
+      img: Mazatlan,
       distance: '1',
     },
     {
@@ -52,7 +60,7 @@ const navItems = {
       sales: '10%',
       price: '60,900',
       id: 6,
-      img: 'url',
+      img: Waterfall,
       distance: '3',
     },
   ],
@@ -78,7 +86,7 @@ const navItems = {
       sales: '20%',
       price: '79,900',
       id: 3,
-      img: 'url',
+      img: Rock,
       distance: '1',
     },
     {
@@ -86,7 +94,7 @@ const navItems = {
       sales: '10%',
       price: '60,900',
       id: 4,
-      img: 'url',
+      img: Sea,
       distance: '3',
     },
     {
@@ -94,7 +102,7 @@ const navItems = {
       sales: '20%',
       price: '79,900',
       id: 5,
-      img: 'url',
+      img: Italy,
       distance: '1',
     },
     {
@@ -102,7 +110,7 @@ const navItems = {
       sales: '10%',
       price: '60,900',
       id: 6,
-      img: 'url',
+      img: Brooklyn,
       distance: '3',
     },
   ],
