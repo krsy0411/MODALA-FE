@@ -23,6 +23,7 @@ export default function Bulguksa() {
                     data-name="불국사권"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 1200 1200"
+                    style={{ transform: 'translate(0px, 100px)' }}
                 >
                     <defs>
                         <style>
