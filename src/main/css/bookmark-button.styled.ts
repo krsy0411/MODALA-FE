@@ -1,13 +1,21 @@
 import styled from "styled-components";
 
+export const BookmarkButtonContainer = styled.div`
+    /* position: relative; */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+`; 
+
 export const BookmarkButton = styled.div`
     width: 47px;
     height: 47px;
     border-radius: 50%;
     background-color: #FBED6C;
-    right: 20px;
-    margin-bottom: 100px;
-    position: absolute;
+    position: relative;
+    margin-bottom: 20px;
+    margin-right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;

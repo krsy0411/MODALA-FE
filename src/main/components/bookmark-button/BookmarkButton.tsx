@@ -2,7 +2,8 @@ import * as Styled from "../../css/bookmark-button.styled";
 
 export default function BookmarkButton() {
     return (
-      <Styled.BookmarkButton>
+      <Styled.BookmarkButtonContainer>
+        <Styled.BookmarkButton>
           <Styled.BookmarkSvg
             xmlns="http://www.w3.org/2000/svg"
             width={25}
@@ -15,6 +16,8 @@ export default function BookmarkButton() {
               fill="#323232"
             />
           </Styled.BookmarkSvg>
-      </Styled.BookmarkButton>
+        </Styled.BookmarkButton>
+      </Styled.BookmarkButtonContainer>
+      
     );    
 }
