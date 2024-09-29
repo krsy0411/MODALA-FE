@@ -17,7 +17,7 @@ export default function Downtown() {
             ease: [0, 0.71, 0.2, 1.01]
             }}
             >
-                <DateandAreaInfo region="경주시내권" isSvg={false} />
+                <DateandAreaInfo region="경주시내권" />
                 <Styled.DowntownSVG
                 id="경주시내권"
                 data-name="경주시내권"

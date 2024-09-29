@@ -17,7 +17,7 @@ export default function Bulguksa() {
             ease: [0, 0.71, 0.2, 1.01]
             }}
             >
-                <DateandAreaInfo region="불국사권" isSvg={false} />
+                <DateandAreaInfo region="불국사권" />
                 <Styled.BulguksaSVG
                     id="불국사권"
                     data-name="불국사권"

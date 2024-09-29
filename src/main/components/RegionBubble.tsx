@@ -2,13 +2,12 @@ import * as Styled from '../css/region.bubble.styled';
 
 interface RegionBubbleProps {
     region: string; // regionname 타입 string으로 지정
-    isSvg?: boolean;
     style?: React.CSSProperties; // style 속성 추가
 }
 
 type ArrowBubbleSize = '3' | '4' | '5';
 
-export default function RegionBubble({ region, isSvg }: RegionBubbleProps) {
+export default function RegionBubble({ region }: RegionBubbleProps) {
     let size: ArrowBubbleSize;
 
     // 길이에 따라 size 결정
@@ -23,7 +22,7 @@ export default function RegionBubble({ region, isSvg }: RegionBubbleProps) {
     return (
         <>
             {region && (
-                <Styled.ArrowBubble size={size} isSvg={isSvg}>
+                <Styled.ArrowBubble size={size}>
                     <Styled.ArrowBubbleText>
                         {/* 말풍선 내용 */}
                         {region} 
