@@ -291,22 +291,22 @@ export default function Map() {
 						// transition={{ type: "spring", stiffness: 300 }} // 스프링 애니메이션
 					>
 						<defs>
-							<filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
-								<feGaussianBlur in="SourceAlpha" stdDeviation="4" />
-								<feOffset dx="0" dy="4" />
+							<filter id="shadow" x="-30%" y="-30%" width="200%" height="200%">
+								<feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+								<feOffset dx="0" dy="5" result="offsetBlur" />
 								<feFlood floodColor="#00000040" />
-								<feComposite in2="SourceAlpha" operator="in" />
+								<feComposite in2="offsetBlur" operator="in" />
 								<feMerge>
 									<feMergeNode />
 									<feMergeNode in="SourceGraphic" />
 								</feMerge>
 							</filter>
 						</defs>
-						{path.region.length === 3 ? (
+						{path.region.length === 3 ? ( // bubble_3 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M25 43C25 40.7909 26.7909 39 29 39H78C80.2091 39 82 40.7909 82 43V54.6792C82 56.8884 80.2091 58.6792 78 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H29C26.7909 58.6792 25 56.8884 25 54.6792V43Z"
 									fill="white"
-									filter="url(#drop-shadow)"
+									filter="url(#shadow)"
 								/>
 								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
 							</svg>
@@ -315,7 +315,7 @@ export default function Map() {
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M20 43C20 40.7909 21.7909 39 24 39H83C85.2091 39 87 40.7909 87 43V54.6792C87 56.8884 85.2091 58.6792 83 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H24C21.7909 58.6792 20 56.8884 20 54.6792V43Z"
 									fill="white"
-									filter="url(#drop-shadow)"
+									filter="url(#shadow)"
 								/>
 								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
 							</svg>
@@ -324,7 +324,7 @@ export default function Map() {
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M15 43C15 40.7909 16.7909 39 19 39H88C90.2091 39 92 40.7909 92 43V54.6792C92 56.8884 90.2091 58.6792 88 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H19C16.7909 58.6792 15 56.8884 15 54.6792V43Z"
 									fill="white"
-									filter="url(#drop-shadow)"
+									filter="url(#shadow)"
 								/>
 								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
 							</svg>
