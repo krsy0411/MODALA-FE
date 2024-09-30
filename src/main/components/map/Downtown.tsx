@@ -1,10 +1,19 @@
-import * as Styled from "../../css/downtown.styled";
+import * as Styled from "../../css/region.map.styled";
 import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
 
 export default function Downtown() {
+    const markerPositions = [
+        { cx: 270, cy: 320 },
+        { cx: 430, cy: 560 },
+        { cx: 600, cy: 500 },
+        { cx: 300, cy: 720 },
+        { cx: 700, cy: 670 },
+        { cx: 500, cy: 910 },
+        { cx: 790, cy: 800 },
+    ];
     return(
         <main.MainContainer>
             <TopAppBar region="경주시내권" />
@@ -17,12 +26,13 @@ export default function Downtown() {
             ease: [0, 0.71, 0.2, 1.01]
             }}
             >
-                <DateandAreaInfo region="경주시내권" isSvg={false} />
-                <Styled.DowntownSVG
+                <DateandAreaInfo region="경주시내권" />
+                <Styled.RegionSVG
                 id="경주시내권"
                 data-name="경주시내권"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1200 1200"
+                style={{ transform: 'translate(0px, 100px)' }}
                 >
                     <defs>
                         <style>
@@ -107,9 +117,42 @@ export default function Downtown() {
                     className="cls-3"
                     points="665.76 705.16 582.79 638.24 575.71 720.87 605.42 726.2 665.76 705.16"
                     />
-                </Styled.DowntownSVG>
-                <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
+                    <defs>
+                        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                            <feOffset dx="0" dy="10" result="offsetBlur" />
+                            <feFlood floodColor="#00000040" />
+                            <feComposite in2="offsetBlur" operator="in" />
+                            <feMerge>
+                                <feMergeNode />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        {/* <mask id="circleMask">
+                            <circle cx="25" cy="16" r="25" fill="white" /> 
+                        </mask> */}
+                    </defs>
+                    {markerPositions.map((pos, index) => (
+                        <g key={index}>
+                            <circle
+                                cx={pos.cx}
+                                cy={pos.cy}
+                                r="50"
+                                fill="white"
+                                filter="url(#shadow)"
+                            />
+                            <image
+                                href="/png/chumsungdae_map.png"
+                                x={pos.cx - 35} // 이미지 중앙 정렬
+                                y={pos.cy - 35} // 이미지 중앙 정렬
+                                width="70" // 이미지 너비
+                                height="70" // 이미지 높이
+                            />
+                        </g>
+                    ))}
+                </Styled.RegionSVG>
             </motion.div>
+            <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
         </main.MainContainer>      
     );    
 }

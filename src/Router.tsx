@@ -12,9 +12,15 @@ import Reservation from './shopping/Reservation';
 import View from './camera/Camera';
 import ReservationResult from './shopping/ReservationResult';
 import Bulguksa from './main/components/map/Bulguksa';
+import BomunKwon from './main/components/map/Bomun-kwon';
+import NamsanKwon from './main/components/map/Namsan-kwon';
+import BukbuKwon from './main/components/map/Bukbu-kwon';
+import DonghaeKwon from './main/components/map/Donghae-kwon';
+import SeobuKwon from './main/components/map/Seobu-kwon';
 import Downtown from './main/components/map/Downtown';
 import MapDescription from './map-description/MapDescription';
 import SavedPlaces from './saved-place/SavedPlaces';
+
 
 export default function Router() {
   return (
@@ -28,6 +34,11 @@ export default function Router() {
         {/* 상세 지도 */}
         <Route path="/Gyeongju-sinae-kwon" element={<Downtown />}></Route>
         <Route path="/Bulguksa-kwon" element={<Bulguksa />}></Route>
+        <Route path="/Bomun-kwon" element={<BomunKwon />}></Route>
+        <Route path="/Namsan-kwon" element={<NamsanKwon />}></Route>
+        <Route path="/Bukbu-kwon" element={<BukbuKwon />}></Route>
+        <Route path="/Donghae-kwon" element={<DonghaeKwon />}></Route>
+        <Route path="/Seobu-kwon" element={<SeobuKwon />}></Route>
         {/* Shoppingcontent = shopping/1와 같이 설정해야함 */}
         <Route path="/shoppingContent" element={<ShoppingContent />}></Route>
         <Route path="/reservation" element={<Reservation />}></Route>
