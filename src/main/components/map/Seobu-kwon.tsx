@@ -5,6 +5,8 @@ import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
 
 export default function SeobuKwon() {
+
+
     return(
         <main.MainContainer>
             <TopAppBar region="서부권" />
