@@ -6,7 +6,7 @@ import * as Styled from "../../css/map.styled";
 interface Path {
 	id: string;
 	d: string;
-	pathName?: string;
+	pathName: string;
 	className: string;
 	region: string;
 	translate: string;
@@ -33,7 +33,7 @@ export default function Map() {
 			translate: "324.4,153.9",
 		},
 		{
-			id: "보문권",
+			id: "보문관광단지권",
 			d: "M702.85,665.82h31.49l48.36,37.12,39.37-25.87-19.12-44.99,20.33-36.25h-1.5l-35.14-12.91c-2.28-.84-3.63-3.2-3.2-5.59l9.67-32.44c.48-2.63-1.07-5.2-3.61-6.02l-54.34-38.36c-2.6-.83-4.22-3.4-3.86-6.1l7.19-53.54h-37.91l-38.24-19.12-37.12,5.62-21.37-18-37.96-11.25-8.16,85.48,7.87,78.73,48.37,26.99,56.42,98.98,13.31,14.62,19.12-37.12Z",
 			region: "보문권",
 			pathName: "Bomun-kwon",
@@ -83,6 +83,12 @@ export default function Map() {
 			return;
 		}
 
+		const selectedPath = paths.find((path) => path.pathName === pathName) as Path | undefined; // 타입 명시
+
+		if (!selectedPath) {
+			alert("해당 경로를 찾을 수 없습니다.");
+			return;
+		}
 		paths.forEach((path) => {
 			const pathElement = document.getElementById(path.id);
 			const bubbleObjectElement = document.getElementById(
@@ -137,7 +143,7 @@ export default function Map() {
 
 		// 모든 애니메이션이 끝난 후 페이지 전환
 		setTimeout(() => {
-			navigate(`/${pathName}`);
+			navigate(`/${pathName}`, { state: { id: selectedPath.id } }); // 타입 단언
 		}, 500); // 0.5초 후에 페이지 전환
 	};
 	return (
@@ -237,12 +243,12 @@ export default function Map() {
 				points="709.43 171.8 629.85 151.83 646.58 122.43 715.62 142.56 709.43 171.8"
 			/>
 			<polygon
-				id="보문권1"
+				id="보문관광단지권1"
 				className="cls-1"
 				points="817.41 428.81 810.66 489.55 718.43 496.86 740.81 423.7 817.41 428.81"
 			/>
 			<polygon
-				id="보문권2"
+				id="보문관광단지권2"
 				className="cls-1"
 				points="866.33 530.04 853.96 571.09 771.85 583.75 793.12 544.88 866.33 530.04"
 			/>
@@ -304,29 +310,78 @@ export default function Map() {
 						</defs>
 						{path.region.length === 3 ? ( // bubble_3 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M25 43C25 40.7909 26.7909 39 29 39H78C80.2091 39 82 40.7909 82 43V54.6792C82 56.8884 80.2091 58.6792 78 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H29C26.7909 58.6792 25 56.8884 25 54.6792V43Z"
-									fill="white"
-									filter="url(#shadow)"
-								/>
-								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								<g>
+									<animateTransform
+											attributeName="transform"
+											attributeType="XML"
+											type="translate"
+											from="0 0"
+											to="0 -12"  // 위로 튀어오르는 거리
+											begin="mousedown; touchstart" // 클릭 또는 터치 시 애니메이션 시작
+											end="mouseup; touchend"      // 클릭 해제 또는 터치 종료 시 애니메이션 종료
+											dur="0.5s"
+											repeatCount="1"
+											fill="freeze"
+											// keyTimes="0; 0.7; 1" // 애니메이션 타이밍
+            								// values="0 0; 0 -10; 0 0" // 애니메이션 값
+									/>
+									<path d="M25 43C25 40.7909 26.7909 39 29 39H78C80.2091 39 82 40.7909 82 43V54.6792C82 56.8884 80.2091 58.6792 78 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H29C26.7909 58.6792 25 56.8884 25 54.6792V43Z"
+										fill="white"
+										filter="url(#shadow)"
+									/>
+									<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								</g>
 							</svg>
 						) : path.region.length === 4 ? (
 							// bubble_4 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M20 43C20 40.7909 21.7909 39 24 39H83C85.2091 39 87 40.7909 87 43V54.6792C87 56.8884 85.2091 58.6792 83 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H24C21.7909 58.6792 20 56.8884 20 54.6792V43Z"
-									fill="white"
-									filter="url(#shadow)"
-								/>
-								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								<g>
+									<animateTransform
+											attributeName="transform"
+											attributeType="XML"
+											type="translate"
+											from="0 0"
+											to="0 -12"  // 위로 튀어오르는 거리
+											begin="mousedown; touchstart" // 클릭 또는 터치 시 애니메이션 시작
+											end="mouseup; touchend"      // 클릭 해제 또는 터치 종료 시 애니메이션 종료
+											dur="0.5s"
+											repeatCount="1"
+											fill="freeze"
+											// keyTimes="0; 0.7; 1" // 애니메이션 타이밍
+            								// values="0 0; 0 -10; 0 0" // 애니메이션 값
+									/>
+									<path d="M20 43C20 40.7909 21.7909 39 24 39H83C85.2091 39 87 40.7909 87 43V54.6792C87 56.8884 85.2091 58.6792 83 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H24C21.7909 58.6792 20 56.8884 20 54.6792V43Z"
+										fill="white"
+										filter="url(#shadow)"
+									/>
+									<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								</g>
+
 							</svg>
 						) : path.region.length === 5 ? (
 							// bubble_5 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M15 43C15 40.7909 16.7909 39 19 39H88C90.2091 39 92 40.7909 92 43V54.6792C92 56.8884 90.2091 58.6792 88 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H19C16.7909 58.6792 15 56.8884 15 54.6792V43Z"
+								<g>
+									<animateTransform
+											attributeName="transform"
+											attributeType="XML"
+											type="translate"
+											from="0 0"
+											to="0 -12"  // 위로 튀어오르는 거리
+											begin="mousedown; touchstart" // 클릭 또는 터치 시 애니메이션 시작
+											end="mouseup; touchend"      // 클릭 해제 또는 터치 종료 시 애니메이션 종료
+											dur="0.5s"
+											repeatCount="1"
+											fill="freeze"
+											// keyTimes="0; 0.7; 1" // 애니메이션 타이밍
+            								// values="0 0; 0 -10; 0 0" // 애니메이션 값
+									/>
+									<path d="M15 43C15 40.7909 16.7909 39 19 39H88C90.2091 39 92 40.7909 92 43V54.6792C92 56.8884 90.2091 58.6792 88 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H19C16.7909 58.6792 15 56.8884 15 54.6792V43Z"
 									fill="white"
 									filter="url(#shadow)"
-								/>
-								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+									/>
+									<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								</g>
 							</svg>
 						) : null}
 					</motion.g>
