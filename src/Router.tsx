@@ -1,26 +1,23 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import Login from './login/Login';
-import Main from './main/Main';
+import { Navigate, Route, Routes } from "react-router-dom";
+import Login from "./login/Login";
+import Main from "./main/Main";
 
-import Shopping from './shopping/Shopping';
-import ShoppingContent from './shopping/ShoppingContent';
-import CollectionBook from './collection-book/Collection';
-import MyPage from './my-page/MyPage';
-import Landing from './landing/Landing';
-import Redirection from './shared/redirection/Redirection';
-import Reservation from './shopping/Reservation';
-import View from './camera/Camera';
-import ReservationResult from './shopping/ReservationResult';
-import Bulguksa from './main/components/map/Bulguksa';
-import BomunKwon from './main/components/map/Bomun-kwon';
-import NamsanKwon from './main/components/map/Namsan-kwon';
-import BukbuKwon from './main/components/map/Bukbu-kwon';
-import DonghaeKwon from './main/components/map/Donghae-kwon';
-import SeobuKwon from './main/components/map/Seobu-kwon';
-import Downtown from './main/components/map/Downtown';
-import MapDescription from './map-description/MapDescription';
-import SavedPlaces from './saved-place/SavedPlaces';
-
+import Shopping from "./shopping/Shopping";
+import CollectionBook from "./collection-book/Collection";
+import MyPage from "./my-page/MyPage";
+import Landing from "./landing/Landing";
+import Redirection from "./shared/redirection/Redirection";
+import Reservation from "./shopping/Reservation";
+import View from "./camera/Camera";
+import Bulguksa from "./main/components/map/Bulguksa";
+import BomunKwon from "./main/components/map/Bomun-kwon";
+import NamsanKwon from "./main/components/map/Namsan-kwon";
+import BukbuKwon from "./main/components/map/Bukbu-kwon";
+import DonghaeKwon from "./main/components/map/Donghae-kwon";
+import SeobuKwon from "./main/components/map/Seobu-kwon";
+import Downtown from "./main/components/map/Downtown";
+import MapDescription from "./map-description/MapDescription";
+import SavedPlaces from "./saved-place/SavedPlaces";
 
 export default function Router() {
   return (
@@ -40,9 +37,12 @@ export default function Router() {
         <Route path="/Donghae-kwon" element={<DonghaeKwon />}></Route>
         <Route path="/Seobu-kwon" element={<SeobuKwon />}></Route>
         {/* Shoppingcontent = shopping/1와 같이 설정해야함 */}
-        <Route path="/shoppingContent" element={<ShoppingContent />}></Route>
+        {/* <Route path="/shoppingContent" element={<ShoppingContent />}></Route> */}
         <Route path="/reservation" element={<Reservation />}></Route>
-        <Route path="/reservationresult" element={<ReservationResult />}></Route>
+        {/* <Route
+          path="/reservationresult"
+          element={<ReservationResult />}
+        ></Route> */}
         <Route path="/collection" element={<CollectionBook />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/modal" element={<MapDescription />}></Route>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Top = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ export const Top = styled.div`
 export const StampText = styled.p`
   padding: 0;
   margin: 0;
-  font-family: 'Gmarket Sans TTF';
+  font-family: "Gmarket Sans TTF";
   font-family: var(--Gmarket-Sans-Bold);
   font-size: 16px;
   font-style: normal;
@@ -33,7 +33,7 @@ export const StampText = styled.p`
 
 export const ProductsText = styled.p`
   padding: 0;
-  font-family: 'Gmarket Sans TTF';
+  font-family: "Gmarket Sans TTF";
   font-family: var(--Gmarket-Sans-Bold);
   font-size: 12pt;
   font-weight: bold;
@@ -42,7 +42,7 @@ export const ProductsText = styled.p`
 
 export const CouponText = styled.p`
   margin: 0;
-  font-family: 'Noto sans';
+  font-family: "Noto sans";
   color: black;
   font-weight: bold;
   font-size: 16pt;
