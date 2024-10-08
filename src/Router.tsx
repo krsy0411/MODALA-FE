@@ -37,13 +37,7 @@ export default function Router() {
         <Route path="/Bukbu-kwon" element={<BukbuKwon />}></Route>
         <Route path="/Donghae-kwon" element={<DonghaeKwon />}></Route>
         <Route path="/Seobu-kwon" element={<SeobuKwon />}></Route>
-        {/* Shoppingcontent = shopping/1와 같이 설정해야함 */}
-        {/* <Route path="/shoppingContent" element={<ShoppingContent />}></Route> */}
         <Route path="/reservation" element={<Reservation />}></Route>
-        {/* <Route
-          path="/reservationresult"
-          element={<ReservationResult />}
-        ></Route> */}
         <Route path="/collection" element={<CollectionBook />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/modal" element={<MapDescription />}></Route>
