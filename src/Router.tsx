@@ -25,11 +25,6 @@ export default function Router() {
     <>
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/landing" element={<Landing />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/shopping" element={<Shopping />}></Route>
-        <Route path="/camera" element={<View />}></Route>
-        {/* 상세 지도 */}
         <Route path="/Gyeongju-sinae-kwon" element={<Downtown />}></Route>
         <Route path="/Bulguksa-kwon" element={<Bulguksa />}></Route>
         <Route path="/Bomun-kwon" element={<BomunKwon />}></Route>
@@ -37,6 +32,10 @@ export default function Router() {
         <Route path="/Bukbu-kwon" element={<BukbuKwon />}></Route>
         <Route path="/Donghae-kwon" element={<DonghaeKwon />}></Route>
         <Route path="/Seobu-kwon" element={<SeobuKwon />}></Route>
+        <Route path="/landing" element={<Landing />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/shopping" element={<Shopping />}></Route>
+        <Route path="/camera" element={<View />}></Route>
         <Route path="/reservation" element={<Reservation />}></Route>
         <Route path="/collection" element={<CollectionBook />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
