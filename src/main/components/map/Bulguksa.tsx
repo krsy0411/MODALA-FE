@@ -3,12 +3,18 @@ import * as Styled from "../../css/region.map.styled";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
+import useMarkers from "../../../shared/hooks/useMarker";
 
 export default function Bulguksa() {
-    const markerPositions = [
-        { cx: 410, cy: 430, img: "/png/chumsungdae_map.png"  },
-        { cx: 580, cy: 820, img: "/png/sukgulam_map.png" },
+
+    const initialMarkers = [
+        { title: "국립경주문화재연구소 천존고", cx: 410, cy: 430 },
+        { title: "불국사", cx: 430, cy: 560 },
+        { title: "석굴암", cx: 580, cy: 820 },
     ];
+
+    const markers = useMarkers(initialMarkers);
+
     return(
         <main.MainContainer>
             <TopAppBar region="불국사권" />
@@ -80,7 +86,7 @@ export default function Bulguksa() {
                     className="cls-4"
                     d="M762.49,361.74l-186.3,34.11-224.15,236.1-67.93,170.85v184.28c0,8.13,4.7,15.53,12.06,18.98l174.46,81.78c7.01,3.29,15.13,3.25,22.11-.11l310.08-149.08,18.53-323.17-41.17-60.15-17.7-193.59Z"
                     />
-                                        <defs>
+                    <defs>
                         <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
                             <feOffset dx="0" dy="10" result="offsetBlur" />
@@ -95,22 +101,27 @@ export default function Bulguksa() {
                             <circle cx="25" cy="16" r="25" fill="white" /> 
                         </mask> */}
                     </defs>
-                    {markerPositions.map((pos, index) => (
+                    {markers.map((marker, index) => (
                         <g key={index}>
                             <circle
-                                cx={pos.cx}
-                                cy={pos.cy}
+                                cx={marker.cx}
+                                cy={marker.cy}
                                 r="50"
                                 fill="white"
                                 filter="url(#shadow)"
                             />
-                            <image
-                                href={pos.img}
-                                x={pos.cx - 35} // 이미지 중앙 정렬
-                                y={pos.cy - 35} // 이미지 중앙 정렬
-                                width="70" // 이미지 너비
-                                height="70" // 이미지 높이
-                            />
+                            {/* 이미지가 존재할 경우에만 렌더링 */}
+                            {marker.image && (
+                                <image
+                                    // href = "/png/chumsungdae_map.png"
+                                    href={`https://${marker.image}`}
+                                    x={marker.cx - 60} // 이미지 중앙 정렬
+                                    y={marker.cy - 60} // 이미지 중앙 정렬
+                                    width="120" // 이미지 너비
+                                    height="120" // 이미지 높이
+                                    // mask="url(#circleMask)"
+                                /> 
+                            )}
                         </g>
                     ))}
                 </Styled.RegionSVG>

@@ -19,6 +19,6 @@ export const ExplainContainer = styled.div`
     font-size: 1rem;
     font-weight: 500;
     font-family: 'GmarketSansMedium';
-    position: absolute;
-    bottom: 15vh;
+    //position: absolute;
+    bottom: 10vh;
 `

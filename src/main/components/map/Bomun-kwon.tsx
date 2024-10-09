@@ -5,6 +5,9 @@ import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
 
 export default function BomunKwon() {
+
+    // 보문권은 대표명소 없음
+
     return(
         <main.MainContainer>
             <TopAppBar region="보문권" />

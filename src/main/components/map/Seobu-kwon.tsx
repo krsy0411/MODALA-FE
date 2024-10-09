@@ -3,9 +3,16 @@ import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
+import useMarkers from "../../../shared/hooks/useMarker";
 
-export default function SeobuKwon() {
+export default function SeobuKwon(){
 
+    const initialMarkers = [
+        { title: "김유신장군묘", cx: 300, cy: 500, },
+        { title: "무열왕릉", cx: 330, cy: 570, },
+    ];
+
+    const markers = useMarkers(initialMarkers);
 
     return(
         <main.MainContainer>
@@ -75,6 +82,44 @@ export default function SeobuKwon() {
                         <path fill="#fff" d="M137.915 334.123h278.673v557.346H137.915z" />
                     </clipPath>
                     </defs>
+                    <defs>
+                        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                            <feOffset dx="0" dy="10" result="offsetBlur" />
+                            <feFlood floodColor="#00000040" />
+                            <feComposite in2="offsetBlur" operator="in" />
+                            <feMerge>
+                                <feMergeNode />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        {/* <mask id="circleMask">
+                            <circle cx="25" cy="16" r="25" fill="white" /> 
+                        </mask> */}
+                    </defs>
+                    {markers.map((marker, index) => (
+                        <g key={index}>
+                            <circle
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r="25"
+                                fill="white"
+                                filter="url(#shadow)"
+                            />
+                            {/* 이미지가 존재할 경우에만 렌더링 */}
+                            {marker.image && (
+                                <image
+                                    // href = "/png/chumsungdae_map.png"
+                                    href={`https://${marker.image}`}
+                                    x={marker.cx - 30} // 이미지 중앙 정렬
+                                    y={marker.cy - 30} // 이미지 중앙 정렬
+                                    width="60" // 이미지 너비
+                                    height="60" // 이미지 높이
+                                    // mask="url(#circleMask)"
+                                /> 
+                            )}
+                        </g>
+                    ))}
                 </Styled.RegionSVG>
             </motion.div>
             <main.ExplainContainer style={{ bottom:'10vh' }}>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
