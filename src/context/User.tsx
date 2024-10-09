@@ -35,7 +35,7 @@ const reducer = (state: UserState, action: UserAction): UserState => {
 export const UserContext = createContext<{
     state: UserState;
     dispatch: React.Dispatch<UserAction>;
-} | undefined>(undefined);
+} | null>(null);
 
 
 export default function User({ children }: { children: React.ReactNode }) {

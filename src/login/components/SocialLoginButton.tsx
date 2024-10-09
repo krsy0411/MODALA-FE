@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import * as Styled from "../css/social.button.styled";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../User";
+import { UserContext } from "../../context/User";
 
 interface ButtonProps {
 	socialName: string;

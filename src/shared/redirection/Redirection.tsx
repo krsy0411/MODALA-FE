@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../User';
+import { UserContext } from '../../context/User';
 
 // 로그인 페이지에서 토큰이 존재하지 않음을 확인하면, 이쪽 컴포넌트로 이동(= 로그인 기록이 없거나 만료되었다)
 export default function Redirection() {
