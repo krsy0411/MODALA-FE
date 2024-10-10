@@ -3,12 +3,72 @@ import * as Styled from "../../css/region.map.styled";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
+import { useState, useContext } from "react";
+import { TourContext } from "../../../context/Tour";
+import MapMarker from "../MapMarker";
+
+// Marker 인터페이스 정의
+export interface Marker {
+    title: string;
+    cx: number;
+    cy: number;
+    image?: string;
+}
+
+// 캐시된 데이터의 타입 정의
+export interface CachedTourData {
+    address: string;
+    area: string;
+    created_at: string;
+    id: string;
+    image: string;
+    is_represent: number;
+    latitude: string;
+    longitude: string;
+    title: string;
+}
 
 export default function Bulguksa() {
+    const { cachedData, isDataValid } = useContext(TourContext); // TourContext에서 값 가져오기
+
+    // 캐시된 데이터 가져오기
+    const cacheKey = 'tour';
+    const valid = isDataValid(cacheKey);
+    const cachedTourData = valid ? cachedData(cacheKey) as CachedTourData[] : [];
+
+    // 마커 title과 위치 정보
     const markerPositions = [
-        { cx: 410, cy: 430, img: "/png/chumsungdae_map.png"  },
-        { cx: 580, cy: 820, img: "/png/sukgulam_map.png" },
+        { title: "국립경주문화재연구소 천존고", cx: 410, cy: 430 },
+        { title: "불국사", cx: 430, cy: 560 },
+        { title: "석굴암", cx: 580, cy: 820 },
     ];
+
+    // initialMarkers 배열 생성
+    const initialMarkers: Marker[] = markerPositions
+        .filter(marker => 
+            cachedTourData.some(data => data.title === marker.title) 
+        )
+        .map(marker => {
+            const data = cachedTourData.find(data => data.title === marker.title); 
+            return {
+                title: marker.title,
+                cx: marker.cx,
+                cy: marker.cy,
+                image: data?.image,
+                address: data?.address,
+                area: data?.area,
+                created_at: data?.created_at,
+                id: data?.id,
+                is_represent: data?.is_represent,
+                latitude: data?.latitude,
+                longitude: data?.longitude,
+
+            };
+        });
+
+    console.log('Initial Markers:', initialMarkers);
+    const [markersWithData, setMarkersWithData] = useState<Marker[]>(initialMarkers);
+
     return(
         <main.MainContainer>
             <TopAppBar region="불국사권" />
@@ -80,7 +140,7 @@ export default function Bulguksa() {
                     className="cls-4"
                     d="M762.49,361.74l-186.3,34.11-224.15,236.1-67.93,170.85v184.28c0,8.13,4.7,15.53,12.06,18.98l174.46,81.78c7.01,3.29,15.13,3.25,22.11-.11l310.08-149.08,18.53-323.17-41.17-60.15-17.7-193.59Z"
                     />
-                                        <defs>
+                    <defs>
                         <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
                             <feOffset dx="0" dy="10" result="offsetBlur" />
@@ -91,25 +151,22 @@ export default function Bulguksa() {
                                 <feMergeNode in="SourceGraphic" />
                             </feMerge>
                         </filter>
-                        {/* <mask id="circleMask">
-                            <circle cx="25" cy="16" r="25" fill="white" /> 
-                        </mask> */}
                     </defs>
-                    {markerPositions.map((pos, index) => (
+                    {markersWithData.map((marker, index) => (
                         <g key={index}>
                             <circle
-                                cx={pos.cx}
-                                cy={pos.cy}
-                                r="50"
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r="55"
                                 fill="white"
                                 filter="url(#shadow)"
                             />
-                            <image
-                                href={pos.img}
-                                x={pos.cx - 35} // 이미지 중앙 정렬
-                                y={pos.cy - 35} // 이미지 중앙 정렬
-                                width="70" // 이미지 너비
-                                height="70" // 이미지 높이
+                            <MapMarker
+                                key={index}
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r={40}
+                                imageUrl={`https://${marker.image}`} // 이미지 URL
                             />
                         </g>
                     ))}

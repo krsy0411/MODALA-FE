@@ -3,8 +3,70 @@ import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
+import { useState, useContext } from "react";
+import { TourContext } from "../../../context/Tour";
+import MapMarker from "../MapMarker";
+
+// Marker 인터페이스 정의
+export interface Marker {
+    title: string;
+    cx: number;
+    cy: number;
+    image?: string;
+}
+
+// 캐시된 데이터의 타입 정의
+export interface CachedTourData {
+    address: string;
+    area: string;
+    created_at: string;
+    id: string;
+    image: string;
+    is_represent: number;
+    latitude: string;
+    longitude: string;
+    title: string;
+}
 
 export default function DonghaeKwon() {
+    const { cachedData, isDataValid } = useContext(TourContext); // TourContext에서 값 가져오기
+
+    // 캐시된 데이터 가져오기
+    const cacheKey = 'tour';
+    const valid = isDataValid(cacheKey);
+    const cachedTourData = valid ? cachedData(cacheKey) as CachedTourData[] : [];
+
+    // 마커 title과 위치 정보
+    const markerPositions = [
+        { title: "관성솔밭해변", cx: 150, cy: 350 },
+    ];
+
+    // initialMarkers 배열 생성
+    const initialMarkers: Marker[] = markerPositions
+        .filter(marker => 
+            cachedTourData.some(data => data.title === marker.title) 
+        )
+        .map(marker => {
+            const data = cachedTourData.find(data => data.title === marker.title); 
+            return {
+                title: marker.title,
+                cx: marker.cx,
+                cy: marker.cy,
+                image: data?.image,
+                address: data?.address,
+                area: data?.area,
+                created_at: data?.created_at,
+                id: data?.id,
+                is_represent: data?.is_represent,
+                latitude: data?.latitude,
+                longitude: data?.longitude,
+
+            };
+        });
+
+    console.log('Initial Markers:', initialMarkers);
+    const [markersWithData, setMarkersWithData] = useState<Marker[]>(initialMarkers);
+
     return(
         <main.MainContainer>
             <TopAppBar region="동해권" />
@@ -79,6 +141,36 @@ export default function DonghaeKwon() {
                         />
                     </clipPath>
                     </defs>
+                    <defs>
+                        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+                            <feOffset dx="0" dy="10" result="offsetBlur" />
+                            <feFlood floodColor="#00000040" />
+                            <feComposite in2="offsetBlur" operator="in" />
+                            <feMerge>
+                                <feMergeNode />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    {markersWithData.map((marker, index) => (
+                        <g key={index}>
+                            <circle
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r="20"
+                                fill="white"
+                                filter="url(#shadow)"
+                            />
+                            <MapMarker
+                                key={index}
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r={15}
+                                imageUrl={`https://${marker.image}`} // 이미지 URL
+                            />
+                        </g>
+                    ))}
                 </Styled.RegionSVG>
             </motion.div>
             <main.ExplainContainer style={{ bottom:'10vh' }}>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>

@@ -6,7 +6,7 @@ import * as Styled from "../../css/map.styled";
 interface Path {
 	id: string;
 	d: string;
-	pathName?: string;
+	pathName: string;
 	className: string;
 	region: string;
 	translate: string;
@@ -19,7 +19,7 @@ export default function Map() {
 		{
 			id: "서부권",
 			d: "M279.93,755.8l34.87,4.5,55.11,41.62,53.99-63.55-58.49-83.8,6.24-81.11c.33-4.33-.59-8.65-2.65-12.47l-41.83-77.39,17.2-55.44c-25.48-.26-57.82-2.24-75.82-3.48-8.66-.59-17.11,2.82-22.94,9.25l-50.37,55.56c-5.59,6.16-8.68,14.18-8.68,22.5v55.96c0,6.29-1.5,12.49-4.36,18.09l-46.5,90.78c-1.52,2.97-2.77,6.07-3.73,9.26l-21.34,71.12-37.16,75.74c-1.62,3.3-1.59,7.18.07,10.46l51.82,102.05c2.16,4.25,5.86,7.52,10.35,9.13l58.58,21.03c2.99,1.07,5.07,3.8,5.32,6.97l5.76,73.08c.18,2.32,1.74,4.3,3.94,5.04l49.14,16.38c1.73.58,3.31-1.2,2.54-2.85l-18.91-40.53c-1.7-3.64-1.82-7.82-.34-11.55l18.65-47.09c1.35-3.4,3.87-6.2,7.11-7.9l17.71-9.28-5.3-151.47v-50.61Z",
-			region: "서부권",
+			region: "서악북부권",
 			pathName: "Seobu-kwon",
 			className: "cls-2",
 			translate: "77.9,530.2",
@@ -27,7 +27,7 @@ export default function Map() {
 		{
 			id: "북부권",
 			d: "M522.89,459.98l34.87,23.62,8.16-85.48,37.96,11.25,21.37,18,37.12-5.62,38.24,19.12h37.91l2.3-17.16-105.46-264.19c-.53-1.33-.51-2.83.06-4.15l12.81-29.66c.7-1.63-.49-3.44-2.26-3.44h-65.33c-2.11,0-3.98,1.38-4.61,3.4l-15.68,50.66c-.92,2.97-3.18,5.33-6.11,6.36l-110.12,38.96c-2.57.91-5.43-.16-6.77-2.54l-5.73-10.19-2.39-13.96c-.47-2.76-3.57-4.19-5.98-2.76l-19.68,11.65c-1.83,1.08-3.11,2.9-3.51,4.99l-8.14,42.11c-.52,2.69-1.86,5.16-3.84,7.06l-11.82,11.33c-1.78,1.71-4.43,2.16-6.68,1.13l-32.17-14.71c-1.54-.7-3.27.53-3.09,2.21,1.43,13.5,6.89,60.41,17.61,98.56,10.37,36.91,28.39,62.63,29.53,67.19l99.82,53.16,41.62-16.87Z",
-			region: "북부권",
+			region: "서악북부권",
 			pathName: "Bukbu-kwon",
 			className: "cls-5",
 			translate: "324.4,153.9",
@@ -35,7 +35,7 @@ export default function Map() {
 		{
 			id: "보문권",
 			d: "M702.85,665.82h31.49l48.36,37.12,39.37-25.87-19.12-44.99,20.33-36.25h-1.5l-35.14-12.91c-2.28-.84-3.63-3.2-3.2-5.59l9.67-32.44c.48-2.63-1.07-5.2-3.61-6.02l-54.34-38.36c-2.6-.83-4.22-3.4-3.86-6.1l7.19-53.54h-37.91l-38.24-19.12-37.12,5.62-21.37-18-37.96-11.25-8.16,85.48,7.87,78.73,48.37,26.99,56.42,98.98,13.31,14.62,19.12-37.12Z",
-			region: "보문권",
+			region: "보문관광단지권",
 			pathName: "Bomun-kwon",
 			className: "cls-3",
 			translate: "587.4,406.2",
@@ -83,6 +83,13 @@ export default function Map() {
 			return;
 		}
 
+		const selectedPath = paths.find((path) => path.pathName === pathName) as Path | undefined; // 타입 명시
+
+		if (!selectedPath) {
+			alert("해당 경로를 찾을 수 없습니다.");
+			return;
+		}
+		// id 기반으로 path 근처 요소들을 찾아서 날려버리는 애니메이션 적용
 		paths.forEach((path) => {
 			const pathElement = document.getElementById(path.id);
 			const bubbleObjectElement = document.getElementById(
@@ -137,7 +144,7 @@ export default function Map() {
 
 		// 모든 애니메이션이 끝난 후 페이지 전환
 		setTimeout(() => {
-			navigate(`/${pathName}`);
+			navigate(`/${pathName}`, { state: { id: selectedPath.id , region: selectedPath.region} }); // 타입 단언
 		}, 500); // 0.5초 후에 페이지 전환
 	};
 	return (
@@ -287,46 +294,93 @@ export default function Map() {
 					/>
 					<motion.g
 						transform={`translate(${path.translate}) scale(3.0)`}
-						// whileTap={{ y: -5 }} // 클릭 시 위로 5px 이동
-						// transition={{ type: "spring", stiffness: 300 }} // 스프링 애니메이션
 					>
 						<defs>
-							<filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
-								<feGaussianBlur in="SourceAlpha" stdDeviation="4" />
-								<feOffset dx="0" dy="4" />
+							<filter id="shadow" x="-30%" y="-30%" width="200%" height="200%">
+								<feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+								<feOffset dx="0" dy="5" result="offsetBlur" />
 								<feFlood floodColor="#00000040" />
-								<feComposite in2="SourceAlpha" operator="in" />
+								<feComposite in2="offsetBlur" operator="in" />
 								<feMerge>
 									<feMergeNode />
 									<feMergeNode in="SourceGraphic" />
 								</feMerge>
 							</filter>
 						</defs>
-						{path.region.length === 3 ? (
+						{path.id.length === 3 ? ( // bubble_3 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M25 43C25 40.7909 26.7909 39 29 39H78C80.2091 39 82 40.7909 82 43V54.6792C82 56.8884 80.2091 58.6792 78 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H29C26.7909 58.6792 25 56.8884 25 54.6792V43Z"
-									fill="white"
-									filter="url(#drop-shadow)"
-								/>
-								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								<g>
+									<animateTransform
+											attributeName="transform"
+											attributeType="XML"
+											type="translate"
+											from="0 0"
+											to="0 -12"  // 위로 튀어오르는 거리
+											begin="mousedown; touchstart" // 클릭 또는 터치 시 애니메이션 시작
+											end="mouseup; touchend"      // 클릭 해제 또는 터치 종료 시 애니메이션 종료
+											dur="0.5s"
+											repeatCount="1"
+											fill="freeze"
+											// keyTimes="0; 0.7; 1" // 애니메이션 타이밍
+            								// values="0 0; 0 -10; 0 0" // 애니메이션 값
+									/>
+									<path d="M25 43C25 40.7909 26.7909 39 29 39H78C80.2091 39 82 40.7909 82 43V54.6792C82 56.8884 80.2091 58.6792 78 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H29C26.7909 58.6792 25 56.8884 25 54.6792V43Z"
+										fill="white"
+										filter="url(#shadow)"
+									/>
+									<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.id}</text>
+								</g>
 							</svg>
-						) : path.region.length === 4 ? (
+						) : path.id.length === 4 ? (
 							// bubble_4 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M20 43C20 40.7909 21.7909 39 24 39H83C85.2091 39 87 40.7909 87 43V54.6792C87 56.8884 85.2091 58.6792 83 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H24C21.7909 58.6792 20 56.8884 20 54.6792V43Z"
-									fill="white"
-									filter="url(#drop-shadow)"
-								/>
-								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+								<g>
+									<animateTransform
+											attributeName="transform"
+											attributeType="XML"
+											type="translate"
+											from="0 0"
+											to="0 -12"  // 위로 튀어오르는 거리
+											begin="mousedown; touchstart" // 클릭 또는 터치 시 애니메이션 시작
+											end="mouseup; touchend"      // 클릭 해제 또는 터치 종료 시 애니메이션 종료
+											dur="0.5s"
+											repeatCount="1"
+											fill="freeze"
+											// keyTimes="0; 0.7; 1" // 애니메이션 타이밍
+            								// values="0 0; 0 -10; 0 0" // 애니메이션 값
+									/>
+									<path d="M20 43C20 40.7909 21.7909 39 24 39H83C85.2091 39 87 40.7909 87 43V54.6792C87 56.8884 85.2091 58.6792 83 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H24C21.7909 58.6792 20 56.8884 20 54.6792V43Z"
+										fill="white"
+										filter="url(#shadow)"
+									/>
+									<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.id}</text>
+								</g>
+
 							</svg>
-						) : path.region.length === 5 ? (
+						) : path.id.length === 5 ? (
 							// bubble_5 SVG 코드
 							<svg id={`bubble-${path.id}`} width="107" height="107" viewBox="0 0 107 107" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M15 43C15 40.7909 16.7909 39 19 39H88C90.2091 39 92 40.7909 92 43V54.6792C92 56.8884 90.2091 58.6792 88 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H19C16.7909 58.6792 15 56.8884 15 54.6792V43Z"
+								<g>
+									<animateTransform
+											attributeName="transform"
+											attributeType="XML"
+											type="translate"
+											from="0 0"
+											to="0 -12"  // 위로 튀어오르는 거리
+											begin="mousedown; touchstart" // 클릭 또는 터치 시 애니메이션 시작
+											end="mouseup; touchend"      // 클릭 해제 또는 터치 종료 시 애니메이션 종료
+											dur="0.5s"
+											repeatCount="1"
+											fill="freeze"
+											// keyTimes="0; 0.7; 1" // 애니메이션 타이밍
+            								// values="0 0; 0 -10; 0 0" // 애니메이션 값
+									/>
+									<path d="M15 43C15 40.7909 16.7909 39 19 39H88C90.2091 39 92 40.7909 92 43V54.6792C92 56.8884 90.2091 58.6792 88 58.6792H62.9607C61.6982 58.6792 60.5098 59.2753 59.7548 60.2872L55.603 65.8516C54.8031 66.9236 53.1969 66.9236 52.397 65.8516L48.2452 60.2872C47.4902 59.2753 46.3018 58.6792 45.0393 58.6792H19C16.7909 58.6792 15 56.8884 15 54.6792V43Z"
 									fill="white"
-									filter="url(#drop-shadow)"
-								/>
-								<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.region}</text>
+									filter="url(#shadow)"
+									/>
+									<text x="50%" y="47%" dominantBaseline="middle" textAnchor="middle" fill="black" fontSize="10" fontFamily="GmarketSansMedium" fontWeight="500">{path.id}</text>
+								</g>
 							</svg>
 						) : null}
 					</motion.g>
