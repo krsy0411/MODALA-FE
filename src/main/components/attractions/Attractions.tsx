@@ -1,8 +1,70 @@
+import { useContext, useEffect, useState } from 'react';
 import Kakaomap from '../../../shared/kakao-map/Kakaomap';
 import Carousel from './components/Carousel';
 import * as Styled from './style/attractions.styled';
+import { TourContext, TourDataType } from '../../../context/Tour';
 
+type Status = 'initial' | 'pending' | 'fulfilled' | 'rejected';
+interface StateType {
+  status: Status;
+  data: TourDataType[];
+  error: Error | null;
+}
 export default function Attractions() {
+  const [state, setState] = useState<StateType>({
+    status: 'initial',
+    data: [],
+    error: null,
+  });
+  const { cachedData, isDataValid } = useContext(TourContext);
+  // const [slideIndex, setSlideIndex] = useState(0);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function fetchData() {
+      if (ignore) return;
+      setState(state => ({ ...state, status: 'pending' }));
+
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BE_URL}/tour?is_represent=1&page=1`);
+        const data = await response.json();
+        cachedData('tour', data);
+        setState(state => ({
+          ...state,
+          status: 'fulfilled',
+          data: data
+        }));
+      } catch (error) {
+        setState(state => ({
+          ...state,
+          status: 'rejected',
+          error: error instanceof Error ? error : new Error(String(error))
+        }))
+      }
+    }
+    // 만약 상태가 초기인 경우, tour데이터가 있는지 체크해보고, 상태를 갱신
+    if (state.status === 'initial') {
+      const cacheKey = 'representedTour';
+
+      if (isDataValid(cacheKey)) {
+        setState(state => ({
+          ...state,
+          status: 'fulfilled',
+          data: cachedData(cacheKey),
+        }));
+      } else {
+        fetchData();
+      }
+    }
+
+    return () => {
+      ignore = true;
+    }
+  }, [cachedData, isDataValid, state.status]);
+
+  console.log(state);
+
   return (
     <div
       className="main-attractions-container"
@@ -48,7 +110,7 @@ export default function Attractions() {
       >
         대표 명소에서만 스탬프를 받을 수 있어요!
       </p>
-      <Carousel />
+      <Carousel data={state.data} />
       <Styled.Container className="kakao-map container">
         <div
           className="texts-wrapper"
@@ -59,7 +121,7 @@ export default function Attractions() {
             paddingBottom: '5px',
           }}
         >
-          <Styled.Title>석굴암</Styled.Title>
+          <Styled.Title>카카오 본사</Styled.Title>
           <Styled.LocationDescription>내 위치에서 5.2km</Styled.LocationDescription>
         </div>
         <Kakaomap width="100%" height="200px" />
