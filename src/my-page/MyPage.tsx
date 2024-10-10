@@ -20,7 +20,7 @@ export default function MyPage() {
     >
       <object
         type="image/svg+xml"
-        data="/src/MyPage/svg/direction.svg"
+        data="/src/my-page/svg/direction.svg"
         style={{
           flexShrink: 0,
           width: '20px',

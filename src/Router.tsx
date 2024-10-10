@@ -18,17 +18,13 @@ import SeobuKwon from "./main/components/map/Seobu-kwon";
 import Downtown from "./main/components/map/Downtown";
 import MapDescription from "./map-description/MapDescription";
 import SavedPlaces from "./saved-place/SavedPlaces";
+import StampSuccess from "./stamp-page/StampSuccess";
 
 export default function Router() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Main />}></Route>
-        <Route path="/landing" element={<Landing />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/shopping" element={<Shopping />}></Route>
-        <Route path="/camera" element={<View />}></Route>
-        {/* 상세 지도 */}
         <Route path="/Gyeongju-sinae-kwon" element={<Downtown />}></Route>
         <Route path="/Bulguksa-kwon" element={<Bulguksa />}></Route>
         <Route path="/Bomun-kwon" element={<BomunKwon />}></Route>
@@ -36,17 +32,16 @@ export default function Router() {
         <Route path="/Bukbu-kwon" element={<BukbuKwon />}></Route>
         <Route path="/Donghae-kwon" element={<DonghaeKwon />}></Route>
         <Route path="/Seobu-kwon" element={<SeobuKwon />}></Route>
-        {/* Shoppingcontent = shopping/1와 같이 설정해야함 */}
-        {/* <Route path="/shoppingContent" element={<ShoppingContent />}></Route> */}
+        <Route path="/landing" element={<Landing />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/shopping" element={<Shopping />}></Route>
+        <Route path="/camera" element={<View />}></Route>
         <Route path="/reservation" element={<Reservation />}></Route>
-        {/* <Route
-          path="/reservationresult"
-          element={<ReservationResult />}
-        ></Route> */}
         <Route path="/collection" element={<CollectionBook />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/modal" element={<MapDescription />}></Route>
         <Route path="/save" element={<SavedPlaces />}></Route>
+        <Route path="/stamp" element={<StampSuccess />}></Route>
         {/* 소셜로그인 하는 경우의 리디렉션 페이지 */}
         <Route path="/redirect" element={<Redirection />}></Route>
         {/* 잘못된 경로로 입력된 경우의 default 페이지 */}

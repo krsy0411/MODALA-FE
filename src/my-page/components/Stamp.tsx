@@ -26,7 +26,7 @@ export default function Stamp() {
           <object
             key={idx}
             type="image/svg+xml"
-            data="/src/MyPage/svg/certificate.small-success.svg"
+            data="/src/my-page/svg/certificate.small-success.svg"
             style={{
               width: '54px',
               height: '54px',
