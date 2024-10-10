@@ -175,12 +175,10 @@ const Overlay = styled.div`
 `;
 
 type CategoryKind = "category" | "recommend" | "top10";
-
 interface CategoryProps {
   kind: CategoryKind;
   onProductClick: (item: any) => void; // 클릭 핸들러 추가
 }
-
 export default function Category({ kind, onProductClick }: CategoryProps) {
   return (
     <Slider kind={kind}>

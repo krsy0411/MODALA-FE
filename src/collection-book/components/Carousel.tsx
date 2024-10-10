@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as Styled from '../css/carousel.styled';
 import Swiper from 'swiper';
 
+
 export default function Carousel() {
   const containerRef = useRef(null);
 

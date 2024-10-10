@@ -33,8 +33,6 @@ export default function Carousel({ data }: CarouselPropsType) {
     }
   }, []);
 
-  console.log(containerRef);
-
   return (
     <div
       className="swiper-container"
@@ -46,7 +44,7 @@ export default function Carousel({ data }: CarouselPropsType) {
       <div className="swiper-wrapper">
         {
           data && data.map((representedTour, index) => {
-            return <Slide name={representedTour.title} backgroundImg={representedTour.image} key={index} backgroundColor={COLORS[index % 3]} />
+            return <Slide name={representedTour.title} backgroundImg={`https://${representedTour.image}`} key={index} backgroundColor={COLORS[index % 3]} />
           })
         }
       </div>

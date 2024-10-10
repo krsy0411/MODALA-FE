@@ -15,8 +15,8 @@ export default function X({
       style={style}
       onClick={clickHandler}
     >
-      <path d="M13 13L37 37" stroke="black" stroke-width="2" stroke-linecap="round" />
-      <path d="M13 37L37 13" stroke="black" stroke-width="2" stroke-linecap="round" />
+      <path d="M13 13L37 37" stroke="black" strokeWidth="2" strokeLinecap="round" />
+      <path d="M13 37L37 13" stroke="black" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }

@@ -3,8 +3,12 @@ import { useEffect } from 'react';
 interface KakaomapPropsType {
   width: string;
   height: string;
+  location?: {
+    latitude: number;
+    longitude: number;
+  }
 }
-export default function Kakaomap({ width, height }: KakaomapPropsType) {
+export default function Kakaomap({ width, height, location = { latitude: 33.450701, longitude: 126.570667 } }: KakaomapPropsType) {
   useEffect(() => {
     const mapScript = document.createElement('script');
     mapScript.async = true;
@@ -15,13 +19,13 @@ export default function Kakaomap({ width, height }: KakaomapPropsType) {
       window.kakao.maps.load(() => {
         const mapContainer = document.querySelector('#map'); //지도를 담을 영역의 DOM 레퍼런스
         const mapOption = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+          center: new window.kakao.maps.LatLng(location.latitude, location.longitude), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
         };
         const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
         //마커가 표시 될 위치
-        const markerPosition = new window.kakao.maps.LatLng(33.450701, 126.570667);
+        const markerPosition = new window.kakao.maps.LatLng(location.latitude, location.longitude);
         // 마커 이미지 : 이미지 위치, 마커 사이즈, 마커 오프셋
         const markerImage = new window.kakao.maps.MarkerImage(
           '/png/marker.png',
@@ -37,7 +41,7 @@ export default function Kakaomap({ width, height }: KakaomapPropsType) {
       });
     };
     mapScript.addEventListener('load', onLoadKakaoMap); // mapScript가 완전히 로드 된 이후 onLoadKakaoMap event가 발생함
-  }, []);
+  }, [location.latitude, location.longitude]);
 
   return (
     <div

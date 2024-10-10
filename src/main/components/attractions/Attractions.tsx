@@ -17,10 +17,10 @@ export default function Attractions() {
     error: null,
   });
   const { cachedData, isDataValid } = useContext(TourContext);
-  // const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     let ignore = false;
+    const cacheKey = 'representedTour';
 
     async function fetchData() {
       if (ignore) return;
@@ -29,7 +29,7 @@ export default function Attractions() {
       try {
         const response = await fetch(`${import.meta.env.VITE_BE_URL}/tour?is_represent=1&page=1`);
         const data = await response.json();
-        cachedData('tour', data);
+        cachedData(cacheKey, data);
         setState(state => ({
           ...state,
           status: 'fulfilled',
@@ -45,8 +45,6 @@ export default function Attractions() {
     }
     // 만약 상태가 초기인 경우, tour데이터가 있는지 체크해보고, 상태를 갱신
     if (state.status === 'initial') {
-      const cacheKey = 'representedTour';
-
       if (isDataValid(cacheKey)) {
         setState(state => ({
           ...state,
@@ -62,8 +60,6 @@ export default function Attractions() {
       ignore = true;
     }
   }, [cachedData, isDataValid, state.status]);
-
-  console.log(state);
 
   return (
     <div

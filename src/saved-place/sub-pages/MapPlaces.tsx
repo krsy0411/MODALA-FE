@@ -4,11 +4,11 @@ import GoBackButton from '../../shared/goback-button/GoBackButton';
 import Kakaomap from '../../shared/kakao-map/Kakaomap';
 import Marker from '../../shared/svg/Marker';
 import * as Styled from '../style/map-places.styled';
-import { SharedPropsType } from '../types';
+import { MapPlacesType } from '../types';
 
-export default function MapPlaces({ handler }: SharedPropsType) {
+export default function MapPlaces({ pagehandler, data }: MapPlacesType) {
   function navToText() {
-    handler('text'); // <저장한 장소 - 카카오맵 버전>으로 이동
+    pagehandler('text'); // <저장한 장소 - 카카오맵 버전>으로 이동
   }
 
   return (
@@ -17,7 +17,7 @@ export default function MapPlaces({ handler }: SharedPropsType) {
         <GoBackButton extraHandler={navToText} navigateNumber={0} />
         <Styled.TopTitle>저장한 장소 - 지도</Styled.TopTitle>
       </Styled.TopWrapper>
-      <Kakaomap width="100%" height="350px" />
+      <Kakaomap width="100%" height="350px" location={{ latitude: Number(data.latitude), longitude: Number(data.longitude) }} />
       <div
         className="line"
         style={{
@@ -35,7 +35,7 @@ export default function MapPlaces({ handler }: SharedPropsType) {
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            marginBottom: '15px',
+            marginBottom: '30px',
           }}
         >
           <Styled.LocationBox>경주</Styled.LocationBox>
@@ -47,14 +47,10 @@ export default function MapPlaces({ handler }: SharedPropsType) {
               transform: 'translate(-41px, -42px)',
             }}
           />
-          <Styled.DescriptionBoxTitle>국립경주박물관</Styled.DescriptionBoxTitle>
+          <Styled.DescriptionBoxTitle>{data.title}</Styled.DescriptionBoxTitle>
           <Styled.DescriptionBoxAddress>
-            경북 경주시 일정로 186 국립경주박물관
+            {data.address}
           </Styled.DescriptionBoxAddress>
-          <Styled.DescriptionBoxTexts>
-            경상북도 경주시에 있는 국립박물관으로 성덕대왕신종(국보)를 비롯한 신라시대의 유물을
-            전시하고 있다.
-          </Styled.DescriptionBoxTexts>
         </Styled.DescriptionBox>
       </Styled.BottomWrapper>
     </Styled.Container>

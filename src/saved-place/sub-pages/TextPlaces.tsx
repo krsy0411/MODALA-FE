@@ -1,14 +1,15 @@
-import { SharedPropsType } from '../types';
+import { TextPlacesType } from '../types';
 import * as Styled from '../style/text-places.styled';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import X from '../../shared/svg/X';
 
-export default function TextPlaces({ handler }: SharedPropsType) {
+export default function TextPlaces({ pagehandler, datahandler, data }: TextPlacesType) {
   const navigate = useNavigate();
 
-  function navToMap() {
-    handler('map'); // <저장한 장소 - 카카오맵 버전>으로 이동
+  function navToMap(index: number) {
+    pagehandler('map'); // <저장한 장소 - 카카오맵 버전>으로 이동
+    datahandler(index)
   }
   function navToMain() {
     navigate('/'); // 메인 페이지로 이동
@@ -33,8 +34,8 @@ export default function TextPlaces({ handler }: SharedPropsType) {
       >
         <Styled.LocationName>경주</Styled.LocationName>
         <Styled.ButtonsWrapper>
-          {new Array(5).fill(null).map((_, index) => (
-            <Button handler={navToMap} key={index} />
+          {data.map((onePlace, index) => (
+            <Button handler={() => navToMap(index)} name={onePlace.title} key={index} />
           ))}
         </Styled.ButtonsWrapper>
       </div>
