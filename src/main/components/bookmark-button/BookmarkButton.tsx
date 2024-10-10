@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import * as Styled from "../../css/bookmark-button.styled";
 
 export default function BookmarkButton() {
-    return (
+  return (
+    <Link to={"/save"}>
       <Styled.BookmarkButtonContainer>
         <Styled.BookmarkButton>
           <Styled.BookmarkSvg
@@ -18,6 +20,6 @@ export default function BookmarkButton() {
           </Styled.BookmarkSvg>
         </Styled.BookmarkButton>
       </Styled.BookmarkButtonContainer>
-      
-    );    
+    </Link>
+  );
 }

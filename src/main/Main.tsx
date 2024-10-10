@@ -72,8 +72,6 @@ export default function Main() {
     };
   }, []);
 
-  console.log(state);
-
   return (
     <Styled.MainContainer>
       <TopAppBar />

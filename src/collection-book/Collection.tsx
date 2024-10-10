@@ -20,7 +20,7 @@ export default function CollectionBook() {
           당신의 기록
         </Styled.Description>
         <Carousel />
-        <Styled.StampCountText>현재까지 모은 스탬프 : ?/??</Styled.StampCountText>
+        {/* <Styled.StampCountText>현재까지 모은 스탬프 : ?/??</Styled.StampCountText> */}
         <BottomSheet>
           <StampRecord />
         </BottomSheet>

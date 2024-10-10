@@ -1,9 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { Dispatch, useEffect, useRef } from 'react';
 import * as Styled from '../style/carousel.styled';
 import Swiper from 'swiper';
+import { TourDataType } from '../../../../context/Tour';
+import { COLORS } from '../../../../shared/constant';
+import { SelectedLocationType } from '../Attractions';
 
-export default function Carousel() {
+interface CarouselPropsType {
+  data: TourDataType[];
+  currentLocationHandler: Dispatch<React.SetStateAction<SelectedLocationType>>;
+}
+export default function Carousel({ data, currentLocationHandler }: CarouselPropsType) {
   const containerRef = useRef(null);
+
+  function onClickHandler(selectedLocation: SelectedLocationType) {
+    currentLocationHandler(selectedLocation);
+  }
 
   useEffect(() => {
     if (containerRef.current) {
@@ -37,26 +48,26 @@ export default function Carousel() {
       }}
     >
       <div className="swiper-wrapper">
-        <Slide name="석굴암" backgroundImg="/png/sukgulam.png" />
-        <Slide name="첨성대" backgroundImg="/png/chumsungdae.png" />
-        <Slide name="불국사" backgroundImg="/png/bulguksa.png" />
+        {
+          data && data.map((representedTour, index) => {
+            const selectedLocation = {
+              latitude: representedTour.latitude,
+              longitude: representedTour.longitude,
+              title: representedTour.title
+            }
+
+            return (
+              <Styled.Container className="swiper-slide container" backgroundColor={COLORS[index % 3]}>
+                <Styled.Name isShort={representedTour.title.length <= 7}>{representedTour.title}</Styled.Name>
+                <Styled.ImgBox src={`https://${representedTour.image}`} />
+                {/* TODO: Link to property 수정 필요 */}
+                <Styled.MapLink onClick={() => onClickHandler(selectedLocation)}>지도</Styled.MapLink>
+              </Styled.Container>
+            )
+          })
+        }
       </div>
       <div className="swiper-pagination"></div>
     </div>
-  );
-}
-
-interface SlidePropsType {
-  name: string;
-  backgroundImg: string;
-}
-function Slide({ name, backgroundImg }: SlidePropsType) {
-  return (
-    <Styled.Container className="swiper-slide container">
-      <Styled.Name>{name}</Styled.Name>
-      <Styled.ImgBox src={backgroundImg} />
-      {/* TODO: Link to property 수정 필요 */}
-      <Styled.MapLink to={'/modal'}>지도</Styled.MapLink>
-    </Styled.Container>
   );
 }

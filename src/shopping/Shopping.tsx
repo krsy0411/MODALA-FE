@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Category from "./components/Category";
-import ProgressState from "./components/Progressbar";
 import Swipers from "./components/Swiper";
 import ContentCategory from "./components/ContentCategory";
-import ImgFile from "/svg/Shopping/Img1.svg";
 import Content1 from "/svg/Shopping/ShoppingContent1.svg";
 import StarRating from "./components/Rating";
 import ButtonGroup from "./components/ContentButton";
@@ -15,16 +13,6 @@ import * as Styled from "./css/page.styled";
 import Search from "/svg/Shopping/Search.svg";
 import CouponGroup from "/svg/Shopping/CouponGroup.svg";
 import { Link } from "react-router-dom";
-
-const navItems = {
-  name: "황리단길 포근한 숙소",
-  sales: 20,
-  price: 79900,
-  id: 1,
-  img: ImgFile,
-  distance: "1",
-  like: 10789,
-};
 
 export default function Shopping() {
   const [activeTab, setActiveTab] = useState("description");
@@ -300,8 +288,8 @@ export default function Shopping() {
               }}
             >
               <Category kind="category" onProductClick={handleProductClick} />
-              <Styled.StampText>스탬프 현황</Styled.StampText>
-              <ProgressState />
+              {/* <Styled.StampText>스탬프 현황</Styled.StampText>
+              <ProgressState /> */}
               <div
                 style={{
                   display: "flex",

@@ -4,12 +4,13 @@ import RightDirection from '../svg/RightDirection';
 
 interface ButtonPropsType {
   handler: () => void;
+  name: string;
 }
-export default function Button({ handler }: ButtonPropsType) {
+export default function Button({ handler, name }: ButtonPropsType) {
   return (
     <Styled.ButtonContainer onClick={handler}>
       <Marker />
-      <Styled.LocationName>경주국립박물관</Styled.LocationName>
+      <Styled.LocationName>{name}</Styled.LocationName>
       <RightDirection />
     </Styled.ButtonContainer>
   );
