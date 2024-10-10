@@ -31,7 +31,7 @@ export default function Main() {
       setState(state => ({ ...state, status: 'pending' }));
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_BE_URL}/tour?page=1`);
+        const response = await fetch(`${import.meta.env.VITE_BE_URL}/tour?is_represent=1&page=1`);
         const data = await response.json();
         cachedData('tour', data);
         setState(state => ({

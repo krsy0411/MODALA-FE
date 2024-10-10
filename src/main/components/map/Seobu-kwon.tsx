@@ -3,16 +3,71 @@ import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
-import useMarkers from "../../../shared/hooks/useMarker";
+import { useState, useContext } from "react";
+import { TourContext } from "../../../context/Tour";
+import MapMarker from "../MapMarker";
+
+// Marker 인터페이스 정의
+export interface Marker {
+    title: string;
+    cx: number;
+    cy: number;
+    image?: string;
+}
+
+// 캐시된 데이터의 타입 정의
+export interface CachedTourData {
+    address: string;
+    area: string;
+    created_at: string;
+    id: string;
+    image: string;
+    is_represent: number;
+    latitude: string;
+    longitude: string;
+    title: string;
+}
 
 export default function SeobuKwon(){
 
-    const initialMarkers = [
+    const { cachedData, isDataValid } = useContext(TourContext); // TourContext에서 값 가져오기
+
+    // 캐시된 데이터 가져오기
+    const cacheKey = 'tour';
+    const valid = isDataValid(cacheKey);
+    const cachedTourData = valid ? cachedData(cacheKey) as CachedTourData[] : [];
+
+    // 마커 title과 위치 정보
+    const markerPositions = [
         { title: "김유신장군묘", cx: 300, cy: 500, },
         { title: "무열왕릉", cx: 330, cy: 570, },
     ];
 
-    const markers = useMarkers(initialMarkers);
+    // initialMarkers 배열 생성
+    const initialMarkers: Marker[] = markerPositions
+        .filter(marker => 
+            cachedTourData.some(data => data.title === marker.title) 
+        )
+        .map(marker => {
+            const data = cachedTourData.find(data => data.title === marker.title); 
+            return {
+                title: marker.title,
+                cx: marker.cx,
+                cy: marker.cy,
+                image: data?.image,
+                address: data?.address,
+                area: data?.area,
+                created_at: data?.created_at,
+                id: data?.id,
+                is_represent: data?.is_represent,
+                latitude: data?.latitude,
+                longitude: data?.longitude,
+
+            };
+        });
+
+    console.log('Initial Markers:', initialMarkers);
+    const [markersWithData, setMarkersWithData] = useState<Marker[]>(initialMarkers);
 
     return(
         <main.MainContainer>
@@ -93,31 +148,23 @@ export default function SeobuKwon(){
                                 <feMergeNode in="SourceGraphic" />
                             </feMerge>
                         </filter>
-                        {/* <mask id="circleMask">
-                            <circle cx="25" cy="16" r="25" fill="white" /> 
-                        </mask> */}
                     </defs>
-                    {markers.map((marker, index) => (
+                    {markersWithData.map((marker, index) => (
                         <g key={index}>
                             <circle
                                 cx={marker.cx}
                                 cy={marker.cy}
-                                r="25"
+                                r="20"
                                 fill="white"
                                 filter="url(#shadow)"
                             />
-                            {/* 이미지가 존재할 경우에만 렌더링 */}
-                            {marker.image && (
-                                <image
-                                    // href = "/png/chumsungdae_map.png"
-                                    href={`https://${marker.image}`}
-                                    x={marker.cx - 30} // 이미지 중앙 정렬
-                                    y={marker.cy - 30} // 이미지 중앙 정렬
-                                    width="60" // 이미지 너비
-                                    height="60" // 이미지 높이
-                                    // mask="url(#circleMask)"
-                                /> 
-                            )}
+                            <MapMarker
+                                key={index}
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r={15}
+                                imageUrl={`https://${marker.image}`} // 이미지 URL
+                            />
                         </g>
                     ))}
                 </Styled.RegionSVG>

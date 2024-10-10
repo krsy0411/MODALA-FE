@@ -3,17 +3,73 @@ import { motion } from "framer-motion";
 import * as main from "../../css/main.styled";
 import TopAppBar from "../TopAppBar";
 import DateandAreaInfo from "../DateAreaInfo";
-import useMarkers from "../../../shared/hooks/useMarker";
+import { useState, useContext } from "react";
+import { TourContext } from "../../../context/Tour";
+import MapMarker from "../MapMarker";
 
+// Marker 인터페이스 정의
+export interface Marker {
+    title: string;
+    cx: number;
+    cy: number;
+    image?: string;
+}
+
+// 캐시된 데이터의 타입 정의
+export interface CachedTourData {
+    address: string;
+    area: string;
+    created_at: string;
+    id: string;
+    image: string;
+    is_represent: number;
+    latitude: string;
+    longitude: string;
+    title: string;
+}
 export default function Downtown() {
+    const { cachedData, isDataValid } = useContext(TourContext); // TourContext에서 값 가져오기
+    
+    // 캐시된 데이터 가져오기
+    const cacheKey = 'tour';
+    const valid = isDataValid(cacheKey);
+    const cachedTourData = valid ? cachedData(cacheKey) as CachedTourData[] : [];
 
-    const initialMarkers = [
+    // 마커 title과 위치 정보
+    const markerPositions = [
         { title: "동궁과 월지", cx: 270, cy: 320 },
         { title: "황룡사지", cx: 430, cy: 560 },
         { title: "첨성대", cx: 600, cy: 500 },
     ];
 
-    const markers = useMarkers(initialMarkers);
+    // initialMarkers 배열 생성
+    const initialMarkers: Marker[] = markerPositions.map(marker => {
+        console.log(marker.title);
+        const data = cachedTourData.find(data => data.title === marker.title);
+        console.log('Data:', data);
+        // data가 존재하는 경우에만 새로운 객체를 생성
+        if (data) {
+            return {
+                title: marker.title,
+                cx: marker.cx,
+                cy: marker.cy,
+                image: data.image,
+                address: data.address,
+                area: data.area,
+                created_at: data.created_at,
+                id: data.id,
+                is_represent: data.is_represent,
+                latitude: data.latitude,
+                longitude: data.longitude,
+            };
+        }
+        
+        // data가 없을 경우 null 또는 빈 객체를 반환할 수 있음
+        return null; // 
+    }).filter(marker => marker !== null); // null을 제외하여 최종 배열 생성
+
+    console.log('Initial Markers:', initialMarkers);
+    const [markersWithData, setMarkersWithData] = useState<Marker[]>(initialMarkers);
 
     return(
         <main.MainContainer>
@@ -131,46 +187,24 @@ export default function Downtown() {
                     className="cls-3"
                     points="665.76 705.16 582.79 638.24 575.71 720.87 605.42 726.2 665.76 705.16"
                     />
-                    {markers.map((marker, index) => (
+                    {markersWithData.map((marker, index) => (
                         <g key={index}>
                             <circle
                                 cx={marker.cx}
                                 cy={marker.cy}
-                                r="50"
+                                r="55"
                                 fill="white"
                                 filter="url(#shadow)"
                             />
-                            {/* 이미지가 존재할 경우에만 렌더링 */}
-                            {marker.image && (
-                                <image
-                                    // href = "/png/chumsungdae_map.png"
-                                    href={`https://${marker.image}`}
-                                    x={marker.cx - 60} // 이미지 중앙 정렬
-                                    y={marker.cy - 60} // 이미지 중앙 정렬
-                                    width="120" // 이미지 너비
-                                    height="120" // 이미지 높이
-                                    // mask="url(#circleMask)"
-                                /> 
-                            )}
+                            <MapMarker
+                                key={index}
+                                cx={marker.cx}
+                                cy={marker.cy}
+                                r={40}
+                                imageUrl={`https://${marker.image}`} // 이미지 URL
+                            />
                         </g>
-                    ))}
-
-                    <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <mask id="circleMask2">
-                                <circle cx="60" cy="60" r="40" fill="white" />
-                            </mask>
-                        </defs>
-                        <image
-                            href="https://www.gyeongju.go.kr/upload/content/thumb/20191210/5B64F3756D924051BCF8199502EF95C2.jpg"
-                            x="0" 
-                            y="0"
-                            width="120"
-                            height="120"
-                            mask="url(#circleMask2)"
-                        />
-                    </svg>
-                                    
+                    ))}             
                 </Styled.RegionSVG>
             </motion.div>
             <main.ExplainContainer>구경하고 싶은 지역을 클릭해 주세요</main.ExplainContainer>
