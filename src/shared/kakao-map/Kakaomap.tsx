@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 interface KakaomapPropsType {
   width: string;
   height: string;
-  location?: {
+  location: {
     latitude: number;
     longitude: number;
   }
 }
-export default function Kakaomap({ width, height, location = { latitude: 33.450701, longitude: 126.570667 } }: KakaomapPropsType) {
+export default function Kakaomap({ width, height, location }: KakaomapPropsType) {
   useEffect(() => {
     const mapScript = document.createElement('script');
     mapScript.async = true;

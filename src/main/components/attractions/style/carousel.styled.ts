@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface ContainerProps {
@@ -42,11 +41,12 @@ export const ImgBox = styled.img`
 	margin-bottom: 19px;
 `;
 
-export const MapLink = styled(Link)`
+export const MapLink = styled.button`
 	width: 55px;
 	height: 20px;
 	padding: 3px 15px;
 	flex-shrink: 0;
+	border: none;
 	border-radius: 20px;
 	background: rgba(0, 0, 0, 0.06);
 	text-decoration: none;

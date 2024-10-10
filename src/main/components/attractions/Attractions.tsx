@@ -10,13 +10,20 @@ interface StateType {
   data: TourDataType[];
   error: Error | null;
 }
+export type SelectedLocationType = Pick<TourDataType, 'title' | 'latitude' | 'longitude'>;
+
 export default function Attractions() {
+  const { cachedData, isDataValid } = useContext(TourContext);
   const [state, setState] = useState<StateType>({
     status: 'initial',
     data: [],
     error: null,
   });
-  const { cachedData, isDataValid } = useContext(TourContext);
+  const [currentKakaoMapLocation, setCurrentKakaoMapLocation] = useState<SelectedLocationType>({
+    latitude: '33.450701',
+    longitude: '126.570667',
+    title: '카카오 본사',
+  });
 
   useEffect(() => {
     let ignore = false;
@@ -106,7 +113,7 @@ export default function Attractions() {
       >
         대표 명소에서만 스탬프를 받을 수 있어요!
       </p>
-      <Carousel data={state.data} />
+      <Carousel data={state.data} currentLocationHandler={setCurrentKakaoMapLocation} />
       <Styled.Container className="kakao-map container">
         <div
           className="texts-wrapper"
@@ -117,10 +124,13 @@ export default function Attractions() {
             paddingBottom: '5px',
           }}
         >
-          <Styled.Title>카카오 본사</Styled.Title>
+          <Styled.Title>{currentKakaoMapLocation.title}</Styled.Title>
           <Styled.LocationDescription>내 위치에서 5.2km</Styled.LocationDescription>
         </div>
-        <Kakaomap width="100%" height="200px" />
+        <Kakaomap width="100%" height="200px" location={{
+          latitude: Number(currentKakaoMapLocation.latitude),
+          longitude: Number(currentKakaoMapLocation.longitude)
+        }} />
       </Styled.Container>
     </div>
   );
