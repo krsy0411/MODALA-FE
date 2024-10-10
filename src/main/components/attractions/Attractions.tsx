@@ -125,7 +125,7 @@ export default function Attractions() {
           }}
         >
           <Styled.Title>{currentKakaoMapLocation.title}</Styled.Title>
-          <Styled.LocationDescription>내 위치에서 5.2km</Styled.LocationDescription>
+          <Styled.LocationDescription>위치를 못 찾았어요 🥲</Styled.LocationDescription>
         </div>
         <Kakaomap width="100%" height="200px" location={{
           latitude: Number(currentKakaoMapLocation.latitude),
