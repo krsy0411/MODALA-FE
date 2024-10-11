@@ -57,7 +57,7 @@ export default function Carousel({ data, currentLocationHandler }: CarouselProps
             }
 
             return (
-              <Styled.Container className="swiper-slide container" backgroundColor={COLORS[index % 3]}>
+              <Styled.Container className="swiper-slide container" backgroundColor={COLORS[index % 3]} key={index}>
                 <Styled.Name isShort={representedTour.title.length <= 7}>{representedTour.title}</Styled.Name>
                 <Styled.ImgBox src={`https://${representedTour.image}`} />
                 {/* TODO: Link to property 수정 필요 */}

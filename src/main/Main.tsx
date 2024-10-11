@@ -72,6 +72,7 @@ export default function Main() {
     };
   }, []);
 
+  console.log(import.meta.env.MODE)
   return (
     <Styled.MainContainer>
       <TopAppBar />

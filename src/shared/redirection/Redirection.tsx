@@ -26,10 +26,12 @@ export default function Redirection() {
           }
         });
 
-        if (import.meta.env.MODE === 'development') {
-          navigate('/');
-        } else {
+        if (import.meta.env.MODE !== 'development') {
+          console.log('배포 모드');
           window.location.href = link;
+        } else {
+          console.log('개발 모드');
+          navigate('/');
         }
       } else if (Number(userContext?.state.expirationTime) < expiration_time) {
         // 이때는, 로그인은 했었지만 갱신되어야하는경우
