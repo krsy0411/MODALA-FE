@@ -8,6 +8,7 @@ export default function Redirection() {
   const userContext = useContext(UserContext);
 
   useEffect(() => {
+    const link = `${import.meta.env.VITE_FE_URL}`;
     const expiration_time = Date.now() + 80000; // 1일 = 86400초 ---> 대략 4시간 이전이 만료시각
     const access_token = new URL(document.location.toString()).searchParams.get('access_token');
     const refresh_token = new URL(document.location.toString()).searchParams.get('refresh_token');
@@ -25,7 +26,11 @@ export default function Redirection() {
           }
         });
 
-        navigate('/');
+        if (import.meta.env.MODE === 'development') {
+          navigate('/');
+        } else {
+          window.location.href = link;
+        }
       } else if (Number(userContext?.state.expirationTime) < expiration_time) {
         // 이때는, 로그인은 했었지만 갱신되어야하는경우
         fetch(`${import.meta.env.VITE_BE_URL}/auth/refresh`, {
@@ -43,7 +48,11 @@ export default function Redirection() {
           });
         });
 
-        navigate('/');
+        if (import.meta.env.MODE === 'development') {
+          navigate('/');
+        } else {
+          window.location.href = link;
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
