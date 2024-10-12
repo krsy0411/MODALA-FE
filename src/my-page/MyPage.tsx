@@ -1,3 +1,4 @@
+import GoBackButton from '../shared/goback-button/GoBackButton';
 import Icons from './components/Icons';
 import Information from './components/Information';
 import Line from './components/Line';
@@ -18,17 +19,7 @@ export default function MyPage() {
         padding: '50px 24px 30px',
       }}
     >
-      <object
-        type="image/svg+xml"
-        data="/src/my-page/svg/direction.svg"
-        style={{
-          flexShrink: 0,
-          width: '20px',
-          height: '14px',
-          fill: '#323232',
-        }}
-        className="direction-svg"
-      />
+      <GoBackButton />
       <Styled.Title>마이 페이지</Styled.Title>
       <Profile />
       <Stamp />
