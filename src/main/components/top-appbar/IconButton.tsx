@@ -1,12 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import * as Styled from '../../../shared/bottom-navigationbar/css/icon.button.styled';
+import { useContext } from 'react';
+import { UserContext } from '../../../context/User';
 
 export default function IconButton() {
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
+  function clickHandler() {
+    // context 객체가 있고, state 객체가 존재하며, accessToken이 유효한 값인 경우
+    if (userContext?.state?.accessToken) {
+      navigate('/mypage');
+    } else {
+      navigate('/login');
+    }
+  }
 
   return (
     <Styled.IconButton
-      onClick={() => navigate('/login')}
+      onClick={clickHandler}
       width={20}
       height={20}
       viewBox="0 0 20 20"

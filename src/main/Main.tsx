@@ -63,7 +63,8 @@ export default function Main() {
     return () => {
       ignore = true;
     }
-  }, [cachedData, isDataValid, state.status]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     document.body.style.backgroundColor = '#D6EFAE';
@@ -72,7 +73,7 @@ export default function Main() {
     };
   }, []);
 
-  console.log(import.meta.env.MODE)
+  console.log('Main');
   return (
     <Styled.MainContainer>
       <TopAppBar />

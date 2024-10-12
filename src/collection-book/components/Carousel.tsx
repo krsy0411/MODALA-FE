@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react';
 import * as Styled from '../css/carousel.styled';
 import Swiper from 'swiper';
+import { StampDataType } from '../Collection';
 
-
-export default function Carousel() {
+interface CarouselComponentProps {
+  stamps: StampDataType[];
+}
+export default function Carousel({ stamps }: CarouselComponentProps) {
   const containerRef = useRef(null);
 
+  // Swiper 초기화 useEffect훅
   useEffect(() => {
     if (containerRef.current) {
       new Swiper(containerRef.current, {
@@ -32,27 +36,28 @@ export default function Carousel() {
   return (
     <Styled.CarouselContainer className="swiper-container" ref={containerRef}>
       <div className="swiper-wrapper">
-        <CarouselSlide name="천마총" />
-        <CarouselSlide name="첨성대" />
-        <CarouselSlide name="불국사" />
+        {
+          stamps.map((stamp, index) => (
+            <CarouselSlide data={stamp} key={index} />
+          ))
+        }
       </div>
       <div className="swiper-pagination"></div>
     </Styled.CarouselContainer>
   );
 }
 
-interface SlideDataProps {
-  name: string;
-  backgroundImg?: string;
+interface CarouselSlideProps {
+  data: StampDataType;
 }
-function CarouselSlide({ name }: SlideDataProps) {
+function CarouselSlide({ data }: CarouselSlideProps) {
   return (
     <>
       <Styled.Slide className="swiper-slide">
-        <Styled.SlideLocationName>{name}</Styled.SlideLocationName>
+        <Styled.SlideLocationName>{data.tourism_spot.title}</Styled.SlideLocationName>
         <div className="img-wrapper">
-          <Styled.SlideTime>2024.06.17</Styled.SlideTime>
-          <Styled.SlideImg />
+          <Styled.SlideTime>{data.created_at}</Styled.SlideTime>
+          <Styled.SlideImg src={`https://${data.tourism_spot.image}`} alt='명소사진' />
         </div>
         <div
           className="description-wrapper"
@@ -60,10 +65,10 @@ function CarouselSlide({ name }: SlideDataProps) {
             margin: '15px 0 15px',
           }}
         >
-          <Styled.SlideDescription>삼국시대 신라 시기의 천문 관측소</Styled.SlideDescription>
-          <Styled.SlideSiteLocationText>경북 경주시 인왕동 839-1</Styled.SlideSiteLocationText>
+          <Styled.SlideDescription>{data.tourism_spot.area}</Styled.SlideDescription>
+          <Styled.SlideSiteLocationText>{data.tourism_spot.address}</Styled.SlideSiteLocationText>
         </div>
-        <Styled.SlideStampNumberDiv>스탬프 번호: 47625</Styled.SlideStampNumberDiv>
+        <Styled.SlideStampNumberDiv>{`스탬프 번호: ${data.id}`}</Styled.SlideStampNumberDiv>
         <img
           src="/svg/certificate/certificate.svg"
           style={{

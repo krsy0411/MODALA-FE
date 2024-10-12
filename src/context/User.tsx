@@ -8,7 +8,7 @@ interface UserState {
 
 type UserAction =
     | { type: "SET_ACCESS_TOKEN"; payload: UserState }
-    | { type: "SET_REFRESH_TOKEN"; payload: string }
+    | { type: "SET_REFRESH_TOKEN"; payload: UserState }
     | { type: "SET_EXPIRATION_TIME"; payload: string };
 
 const initialState: UserState = {
@@ -23,7 +23,7 @@ const reducer = (state: UserState, action: UserAction): UserState => {
         case "SET_ACCESS_TOKEN":
             return { ...state, accessToken: action.payload.accessToken, refreshToken: action.payload.refreshToken, expirationTime: action.payload.expirationTime };
         case "SET_REFRESH_TOKEN":
-            return { ...state, refreshToken: action.payload };
+            return { ...state, accessToken: action.payload.accessToken, refreshToken: action.payload.refreshToken, expirationTime: action.payload.expirationTime };
         case "SET_EXPIRATION_TIME":
             return { ...state, expirationTime: action.payload };
         default:
@@ -46,8 +46,7 @@ export default function User({ children }: { children: React.ReactNode }) {
         localStorage.setItem("access_token", state.accessToken || "");
         localStorage.setItem("refresh_token", state.refreshToken || "");
         localStorage.setItem("expiration_time", state.expirationTime || "");
-    }, [state]);
-
+    }, [state.accessToken, state.refreshToken, state.expirationTime]);
 
     return (
         <UserContext.Provider value={{ state, dispatch }}>

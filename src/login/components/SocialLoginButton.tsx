@@ -13,7 +13,6 @@ export default function SocialLoginButton({
 	backgroundColor,
 	message,
 }: ButtonProps) {
-	const link = `${import.meta.env.VITE_BE_URL}/auth/kakao/login`;
 	const userContext = useContext(UserContext);
 	const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ export default function SocialLoginButton({
 		} else {
 			if (socialName === "kakao") {
 				// 아예 다른 페이지로 잠시 이동(Redirection 컴포넌트에서 처리)
-				window.location.href = link;
+				navigate('/redirect');
 			}
 		}
 	}
