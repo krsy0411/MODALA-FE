@@ -1,5 +1,3 @@
-import * as Styled from '../css/profile.styled';
-
 export default function Profile() {
   return (
     <div
@@ -18,9 +16,6 @@ export default function Profile() {
           paddingRight: '18px',
         }}
       />
-      <Styled.Name>
-        <strong>홍길동</strong> 님
-      </Styled.Name>
     </div>
   );
 }
