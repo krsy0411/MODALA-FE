@@ -1,6 +1,28 @@
+import { useContext, useEffect, useState } from 'react';
 import * as Styled from '../css/stamp.styled';
+import { UserContext } from '../../context/User';
 
+const IMG_SRC = '/src/my-page/svg/certificate.small-success.svg';
 export default function Stamp() {
+  const [stampCount, setStampCount] = useState(0);
+  const userContext = useContext(UserContext);
+
+  useEffect(() => {
+    if (userContext && userContext.state) {
+      fetch(`${import.meta.env.VITE_BE_URL}/stamp/count`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${userContext.state.accessToken}`,
+        }
+      })
+        .then(response => response.json())
+        .then(data => setStampCount(data.count))
+        .catch(error => console.error('스탬프 개수 : ', error))
+    } else {
+      setStampCount(0);
+    }
+  }, [userContext]);
+
   return (
     <div
       className="mypage__stamp-container"
@@ -10,7 +32,7 @@ export default function Stamp() {
     >
       <div className="stamp-currentCount--wrapper">
         <Styled.StampCurrentCountText>
-          <strong>스탬프 현황</strong> 5/5
+          <strong>스탬프 현황</strong> {stampCount}개
         </Styled.StampCurrentCountText>
       </div>
       <div
@@ -22,17 +44,27 @@ export default function Stamp() {
           paddingBottom: '25px',
         }}
       >
-        {[...Array(5)].map((_, idx) => (
-          <object
-            key={idx}
-            type="image/svg+xml"
-            data="/src/my-page/svg/certificate.small-success.svg"
-            style={{
-              width: '54px',
-              height: '54px',
-            }}
-          />
-        ))}
+        {
+          stampCount > 0 ? (
+            <>
+              {[...Array(stampCount)].map((_, idx) => (
+                <object
+                  key={idx}
+                  type="image/svg+xml"
+                  data={IMG_SRC}
+                  style={{
+                    width: '54px',
+                    height: '54px',
+                  }}
+                />
+              ))}
+            </>
+          ) : (
+            <p style={{
+              margin: 0
+            }}>스탬프가 아직 없습니다</p>
+          )
+        }
       </div>
       <Styled.StampDescriptionDiv className="stamp-descriptionBox-wrapper">
         <Styled.StampDescriptionTitle>스탬프 이용 방법</Styled.StampDescriptionTitle>
