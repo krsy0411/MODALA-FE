@@ -1,5 +1,8 @@
 # 모다라(MODALA)
 
+- <a href="https://www.2024tourapi.com/" alt="2024한국관광공사 공모전">2024 관광데이터 활용 공모전</a> 참가 작품
+- 2024.06.01 ~ 2024.10.01
+
 ## 팀
 
 |                                       [시영](https://github.com/krsy0411)                                       |                                        [민주](https://github.com/minzzn)                                        |                                       [현민](https://github.com/baekggum)                                       |                                 [용원](https://github.com/ChoiYongWon)                                 |
