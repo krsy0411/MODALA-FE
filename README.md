@@ -11,16 +11,18 @@
 
 ### 메인
 
-![Main1](./assets/main.gif)
+<img src="./assets/main.gif" alt="main-gif" width="200px">
 
 #### 권역
 
-![Main1](./assets/eastsea.png)
-![Main1](./assets/street.png)
+<div style="display: flex; flex-direction: row; gap: 10px">
+  <img src="./assets/eastsea.png" alt="eastsea-png" width="200px">
+  <img src="./assets/street.png" alt="street-png" width="200px">
+</div>
 
 ### 로그인
 
-![Main1](./assets/login.png)
+<img src="./assets/login.png" alt="login-png" width="200px">
 
 #### API swagger 주소
 
